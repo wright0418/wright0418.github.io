@@ -4,7 +4,7 @@ title:  "Welcome to dactl!"
 tags:
   - dactl
   - jekyll
-hero: https://source.unsplash.com/collection/430471/
+hero: https://images.pexels.com/photos/946727/pexels-photo-946727.jpeg
 overlay: red
 published: true
 
