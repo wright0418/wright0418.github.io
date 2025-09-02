@@ -1,10 +1,10 @@
-theme: jekyll-theme-minimal
+theme: jekyll-theme-hacker
 title: "Wright 吳奇峯的個人網站"
 description: "技術筆記、開發心得與作品集"
 url: "https://wright0418.github.io"
 baseurl: ""
 author:
-  name: "Wright 吳奇峯"
+  name: "吳奇峯"
   github: "wright0418"
 plugins:
   - jekyll-feed
