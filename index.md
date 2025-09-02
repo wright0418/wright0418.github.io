@@ -19,7 +19,8 @@ title: 首頁
 {% endif %}
 
 ## 專案
-- 查看我的作品與連結：<a href="{{ '/projects' | relative_url }}">Projects</a>
+- 我的作品與連結：<a href="{{ '/projects' | relative_url }}">Projects</a>
 
 ## 關於我
 - 認識我：<a href="{{ '/about' | relative_url }}">About</a>
+- 我的 Youtube頻道 (奶爸的教育): <a href="https://www.youtube.com/c/%E5%A5%B6%E7%88%B8%E7%9A%84%E6%95%99%E8%82%B2">About</a>
