@@ -23,4 +23,4 @@ title: 首頁
 
 ## 關於我
 - 認識我：<a href="{{ '/about' | relative_url }}">About</a>
-- 我的 Youtube頻道 (奶爸的教育): <a href="https://www.youtube.com/c/%E5%A5%B6%E7%88%B8%E7%9A%84%E6%95%99%E8%82%B2">About</a>
+- 我的 Youtube頻道 : <a href="https://www.youtube.com/c/%E5%A5%B6%E7%88%B8%E7%9A%84%E6%95%99%E8%82%B2">奶爸的教育</a>
