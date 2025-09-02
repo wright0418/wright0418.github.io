@@ -1,0 +1,11 @@
+theme: jekyll-theme-minimal
+title: "wright0418 的個人網站"
+description: "技術筆記、開發心得與作品集"
+url: "https://wright0418.github.io"
+baseurl: ""
+author:
+  name: "wright0418"
+  github: "wright0418"
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap

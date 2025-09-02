@@ -1,0 +1,25 @@
+---
+layout: default
+title: 首頁
+---
+
+# 嗨，我是 wright0418 👋
+
+這裡是我的個人網站，會分享技術筆記、開發心得，以及我正在做或完成的專案。
+
+## 最新文章
+{% if site.posts.size > 0 %}
+<ul>
+{% for post in site.posts limit:5 %}
+  <li><span>{{ post.date | date: "%Y-%m-%d" }}</span> — <a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<p>還沒有文章，準備中...</p>
+{% endif %}
+
+## 專案
+- 查看我的作品與連結：<a href="{{ '/projects' | relative_url }}">Projects</a>
+
+## 關於我
+- 認識我：<a href="{{ '/about' | relative_url }}">About</a>
