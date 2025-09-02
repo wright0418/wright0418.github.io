@@ -9,3 +9,5 @@ author:
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+
+future: true
