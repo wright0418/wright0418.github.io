@@ -20,6 +20,7 @@ title: 首頁
 
 ## 專案
 - 我的作品與連結：<a href="{{ '/projects' | relative_url }}">Projects</a>
+- 我的學習電子書：<a href="https://github.com/wright0418/My_eBook/tree/main" target="_blank" rel="noopener">My_eBook（學習電子書）</a>
 
 ## 關於我
 - 認識我：<a href="{{ '/about' | relative_url }}">About</a>
