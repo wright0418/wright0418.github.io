@@ -91,7 +91,7 @@ tags: [Nuvoton, NUC980, BuildRoot, Linux, BSP]
      - minimum I/O unit size: (0x800)
      - maximum logical erase block count: (800)
      - Additional mkfs.ubifs options: (-F)
-    ![alt text](image.png)
+![alt text](/assets/images/posts/2025-09-14-nuc980-buildroot/image.png)
 
 5. Uboot 設定
     - Enable booting from NAND flash
@@ -127,16 +127,16 @@ tags: [Nuvoton, NUC980, BuildRoot, Linux, BSP]
            [*]   UBI block device support
 
 
-![alt text](image-3.png)
-![alt text](image-2.png)
-![alt text](image-1.png)
+![alt text](/assets/images/posts/2025-09-14-nuc980-buildroot/image-3.png)
+![alt text](/assets/images/posts/2025-09-14-nuc980-buildroot/image-2.png)
+![alt text](/assets/images/posts/2025-09-14-nuc980-buildroot/image-1.png)
 
 
 1. Linux device tree (nuc980-iot_v1.0.dts) flash0 partition:
 four partitions: uboot, dtb, kernel, and rootfs. Here, reg = <0x180000 0x20000>, where 0x180000 is the address and 0x20000 is the size (in bytes).
 
 Users can divide it according to their own needs. Please note that the maximum size of the NAND flash is 128 MB, so do not exceed this limit.
-![alt text](image-4.png)
+![alt text](/assets/images/posts/2025-09-14-nuc980-buildroot/image-4.png)
 
 7. env.txt
 
@@ -165,7 +165,7 @@ bootargs=noinitrd ubi.mtd=2 root=ubi0:rootfs rootfstype=ubifs rw rootwait=1 cons
    ```
 
 9. 燒錄
-    ![alt text](image-5.png)
+    ![alt text](/assets/images/posts/2025-09-14-nuc980-buildroot/image-5.png)
 
 ## 常見問題與解法
 
