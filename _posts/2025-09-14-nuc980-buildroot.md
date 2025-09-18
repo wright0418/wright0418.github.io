@@ -1,4 +1,5 @@
 ---
+layout: default
 title: "Nuvoton NUC980 BuildRoot 學習紀錄"
 date: 2025-09-14
 categories: [embedded-Linux, buildroot, nuc980]

@@ -2,6 +2,7 @@
 layout: default
 title: "搞懂 GitHub Copilot + Issues + Pull Requests：雲端小幫手自動幫你解決！"
 date: 2025-9-13 18:00:00 +0000
+categories: [技術分享, 開發工具]
 tags: [GitHub, Copilot, 開發心得]
 ---
 

@@ -2,6 +2,7 @@
 layout: default
 title: "人生是不斷的放下、允許與接受"
 date: 2025-09-14 00:00:00 +0000
+categories: [生活思考]
 tags: [生活心得, 人生感悟, 哲學思考]
 ---
 

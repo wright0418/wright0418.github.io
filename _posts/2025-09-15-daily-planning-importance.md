@@ -2,6 +2,7 @@
 layout: default
 title: "規劃一日行程很重要"
 date: 2025-09-15 00:00:00 +0000
+categories: [生活思考]
 tags: [生活心得, 時間管理, 自我成長, 心靈規劃]
 ---
 
