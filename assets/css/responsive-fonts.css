@@ -1,0 +1,26 @@
+/* 這是自適應字體大小的 CSS */
+body {
+    font-size: 2vw;
+    /* 字體大小隨螢幕寬度變化 */
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 4vw;
+        /* 螢幕寬度小於600px時的字體大小 */
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1200px) {
+    body {
+        font-size: 3vw;
+        /* 螢幕寬度在601px到1200px之間的字體大小 */
+    }
+}
+
+@media (min-width: 1201px) {
+    body {
+        font-size: 2vw;
+        /* 螢幕寬度大於1200px時的字體大小 */
+    }
+}

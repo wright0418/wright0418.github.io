@@ -3,6 +3,9 @@ layout: default
 title: 首頁
 ---
 
+<!-- 引入樣式檔案 -->
+<link rel="stylesheet" href="assets/styles.css">
+
 # Wright (吳奇峯) 👋
 
 這裡是我的個人網站，會分享技術筆記、開發心得，以及我正在做或完成的專案。
@@ -10,7 +13,7 @@ title: 首頁
 ## 最新文章
 {% if site.posts.size > 0 %}
 <ul>
-{% for post in site.posts limit:5 %}
+{% for post in site.posts limit:10 %}
   <li><span>{{ post.date | date: "%Y-%m-%d" }}</span> — <a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
 {% endfor %}
 </ul>

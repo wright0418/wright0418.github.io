@@ -11,3 +11,7 @@ plugins:
   - jekyll-sitemap
 
 future: true
+
+# Custom CSS file
+styles:
+  - assets/css/custom.css
