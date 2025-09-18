@@ -1,4 +1,5 @@
 ---
+layout: default
 title: "GitHub Copilot Agent Mode：從構想到完成 APP 的自動化開發體驗"
 date: 2025-09-14
 categories: [技術分享, 開發工具, AI 開發]

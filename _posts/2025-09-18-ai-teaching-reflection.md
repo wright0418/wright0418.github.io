@@ -1,4 +1,5 @@
 ---
+layout: default
 title: "打開AI教學新局：從冷場到交流的三小時體驗"
 date: 2025-09-18
 categories: [AI, 教學心得]

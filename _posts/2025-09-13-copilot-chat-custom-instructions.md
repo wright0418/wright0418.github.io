@@ -1,4 +1,5 @@
 ---
+layout: default
 title: "Copilot Chat 自訂指令：提升開發效率的秘密武器"
 date: 2025-09-13
 categories: [技術分享, 開發工具]
