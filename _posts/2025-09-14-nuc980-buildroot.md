@@ -102,6 +102,7 @@ tags: [Nuvoton, NUC980, BuildRoot, Linux, BSP]
              [*] Enable booting from SPI flash
     ```
 6. linux kernel 設定
+
    ```bash
    # make linux-menuconfig
     General setup  --->
