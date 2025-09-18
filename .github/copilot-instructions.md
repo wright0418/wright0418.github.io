@@ -15,7 +15,7 @@
 - **部署**：推送至 `main` 分支後，GitHub Pages 會自動建置並部署。
 
 ## 專案慣例
-- 文章檔案必須有正確的日期與標題格式，YAML front matter 至少包含 `title` 與 `date`。
+- 文章檔案必須有正確的日期與標題格式，YAML front matter 至少包含 `title` 、`tags`與 `date`。
 - 所有靜態頁面皆採用 Markdown 格式，並可加入 YAML front matter。
 - 設定檔 `_config.yml` 為唯一 Jekyll 設定來源，請勿分散設定於其他檔案。
 
@@ -29,6 +29,7 @@
   ---
   title: "新文章標題"
   date: 2025-09-13
+  tags: [標籤1, 標籤2]
   ---
   文章內容 ...
   ```

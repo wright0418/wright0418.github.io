@@ -116,7 +116,7 @@ tags: [Nuvoton, NUC980, BuildRoot, Linux, BSP]
             [*]   command line partition parser
             [*]   open firmware partition parser
     Memory Technology Device (MTD) support  --->     
-       [*]   enable UBI - Unsorted block images --->
+            [*]   enable UBI - Unsorted block images --->
             (4096) UBI wear-leveling 
             (20)  Maximum expected bad eraseblock count
             [*]   UBI Fastmap (Experimental feature)
