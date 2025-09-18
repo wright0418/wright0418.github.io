@@ -17,7 +17,7 @@ tags: [生活心得, 會議管理, 心靈成長, 寧靜禱文, 自我成長]
 > 平靜：接受我不能改變的事情  
 > 勇氣：改變我可以改變的事情  
 > 智慧：分辨兩者的不同  
-> -- From 基督教-寧靜禱文
+>                -- From 基督教-寧靜禱文
 
 這段話如醍醐灌頂，讓我重新思考在工作和生活中的各種困擾。無論是會議中的無效討論，還是生活中的種種挑戰，關鍵都在於「聚焦能改變的事情」。
 
@@ -27,48 +27,18 @@ tags: [生活心得, 會議管理, 心靈成長, 寧靜禱文, 自我成長]
 
 在祈禱的時候，我們應該要求自己開始改變心態。**平靜的去面對這個多變的世界，情緒無法解決事情，只有冷靜的面對才有機會做出正確的決定。**
 
-就像寫程式遇到 bug 一樣，抱怨和焦慮只會浪費時間：
-
-```python
-class LifeChallengeHandler:
-    def __init__(self):
-        self.unchangeable_events = []
-        self.changeable_actions = []
-        self.emotions = {"anxiety": 0, "peace": 100}
-    
-    def accept_unchangeable(self, event):
-        """以平靜的心接受不可改變的事情"""
-        print(f"接受現實: {event}")
-        self.unchangeable_events.append(event)
-        self.emotions["peace"] += 10
-        self.emotions["anxiety"] = max(0, self.emotions["anxiety"] - 20)
-        
-    def focus_on_response(self, event):
-        """專注於我們可以控制的回應方式"""
-        response_options = [
-            "調整心態面對",
-            "學習從中成長", 
-            "尋找替代方案",
-            "改變自己的行為"
-        ]
-        
-        print(f"面對 '{event}' 我可以選擇:")
-        for i, option in enumerate(response_options, 1):
-            print(f"  {i}. {option}")
-        
-        return response_options
-
-# 實際應用
-handler = LifeChallengeHandler()
-handler.accept_unchangeable("會議被延期")
-handler.focus_on_response("會議被延期")
-```
+我們需要學會接受那些我們無法改變的事情：
+- **接受**：有些事情是我們無法控制的，比如天氣、他人的行為
+- **平靜**：保持冷靜，專注於我們能做的部分
 
 ### 勇氣：改變可以改變的事情
 
 **勇氣的心態，知道改變很困難，也知道需要努力，卻很難跨出勇氣的那一步。知道自己的恐懼到底來自何處。**
 
 我們需要勇敢地面對那些可以改變的事情，即使過程充滿挑戰：
+- **勇氣**：敢於面對困難，勇於承擔責任
+- **行動**：積極採取行動，改變我們能控制的部分
+- **反思**：定期檢視自己的行動與決策，學習如何更有效地應對挑戰
 
 ### 智慧：分辨可改變與不可改變
 
