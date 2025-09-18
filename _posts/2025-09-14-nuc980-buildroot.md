@@ -141,23 +141,15 @@ Users can divide it according to their own needs. Please note that the maximum s
 
 7. env.txt
 
-``` txt
+```txt
 baudrate=115200
-
 bootdelay=1
-
 stderr=serial
-
 stdin=serial
-
 stdout=serial
-
 loadkernel=nand read 7fc0 200000 800000
-
 loaddtb=nand read 0xA00000 0x1C0000 0x20000
-
 bootcmd=run loadkernel;run loaddtb;bootm 0x07fc0 - 0xA00000
-
 bootargs=noinitrd ubi.mtd=2 root=ubi0:rootfs rootfstype=ubifs rw rootwait=1 console=ttyS0 rdinit=/sbin/init mem=64M
 ```
 8. 編譯
@@ -173,11 +165,24 @@ bootargs=noinitrd ubi.mtd=2 root=ubi0:rootfs rootfstype=ubifs rw rootwait=1 cons
 - make menuconfig 錯誤 `make menuconfig' requires the ncurses libraries.`
   - 確認 ncurses 套件已安裝：`sudo apt-get install libncurses-dev`
   - 重新執行 make menuconfig
+- env.txt 設定錯誤導致無法啟動
+  - 確認 env.txt 中的 bootargs 與 bootcmd 設定正確，特別是 rootfs 與 console 參數。
+  - env.txt 的換行需要使用 CRLF (Windows) 格式，否則可能導致啟動失敗 (uImage CRC Error)。
+- NUC980 boot 開機流程
+  1. Internal Boot ROM (IBR) 讀取 SPI Flash 的 U-Boot SPL (Secondary Program Loader)
+  2. SPL 初始化基本硬體並載入完整的 U-Boot 映像
+  3. U-Boot 讀取 env.txt 設定
+  4. U-Boot 讀取 Linux 核心映像 (uImage) 與 Device Tree Blob (dtb)
+  5. U-Boot 傳遞控制權給 Linux 核心，並啟動系統
+  6. Linux 核心掛載 rootfs 並啟動 init 程序
+   
+- VMware 直接拖拉檔案即可複製回 windows 主機
 
 - 安裝 vscode
   - 下載連結：https://code.visualstudio.com/
   - 安裝指令：`sudo dpkg -i code_1.81.1-1695216607_amd64.deb`
   - 若有相依性問題，執行：`sudo apt-get install -f`
+  
 ## 參考與資源
 
 - BuildRoot 官方文件：https://buildroot.org/
