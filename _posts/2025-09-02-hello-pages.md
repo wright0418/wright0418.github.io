@@ -2,6 +2,7 @@
 layout: default
 title: "開站記錄：Hello, GitHub Pages"
 date: 2025-09-02 00:00:00 +0000
+categories: [技術分享]
 tags: [meta]
 ---
 

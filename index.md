@@ -21,6 +21,9 @@ title: 首頁
 <p>還沒有文章，準備中...</p>
 {% endif %}
 
+## 瀏覽文章
+- 依分類瀏覽：<a href="{{ '/categories' | relative_url }}">分類列表</a>
+
 ## 專案
 - 我的作品與連結：<a href="{{ '/projects' | relative_url }}">Projects</a>
 - 我的學習電子書：<a href="https://github.com/wright0418/My_eBook/tree/main" target="_blank" rel="noopener">My_eBook（學習電子書）</a>

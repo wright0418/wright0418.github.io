@@ -2,6 +2,7 @@
 layout: default
 title: "Google Gemini 與 NotebookLM 對我的影響"
 date: 2025-09-13 12:00:00 +0000
+categories: [AI, 工具分享]
 tags: [AI, Google, 工具, 生產力]
 ---
 
