@@ -10,29 +10,30 @@ title: 文章
 ## 最新文章
 
 {% if site.posts.size > 0 %}
-<div class="posts-list">
+<div class="posts-list">  
 {% for post in site.posts %}
   <article class="post-item">
-    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+    <h1 style="font-size: 2.5em; margin-bottom: 0.2em;"><a href="{{ post.url | relative_url }}">{{ post.title | split: '\n' | first }}</a></h1>
     <div class="post-meta">
-      <span class="post-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+      <div class="post-date">{{ post.date | date: "%Y年%m月%d日" }}</div>
       {% if post.categories.size > 0 %}
-        <span class="post-categories">
+        <div class="post-categories">
           分類：
           {% for category in post.categories %}
             <a href="{{ '/category/' | append: category | downcase | append: '/' | relative_url }}" class="category-link">{{ category }}</a>
             {% unless forloop.last %}, {% endunless %}
           {% endfor %}
-        </span>
+        </div>
       {% endif %}
       {% if post.tags.size > 0 %}
-        <span class="post-tags">
+        <div class="post-tags">
           標籤：
-          {% for tag in post.tags %}
+          {% assign unique_tags = post.tags | uniq %}
+          {% for tag in unique_tags %}
             <span class="tag">{{ tag }}</span>
             {% unless forloop.last %}, {% endunless %}
           {% endfor %}
-        </span>
+        </div>
       {% endif %}
     </div>
     {% if post.excerpt %}
