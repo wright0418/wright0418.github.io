@@ -5,11 +5,124 @@ body {
     /* 設定背景顏色 */
 }
 
+/* Navigation Menu Styles */
+.main-nav {
+    margin: 20px 0;
+    padding: 0;
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.main-nav li {
+    margin: 0 5px;
+}
+
+.main-nav a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.main-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.main-nav a.current {
+    background-color: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+}
+
+/* Posts list styles */
+.posts-list .post-item {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.posts-list .post-item h3 {
+    margin-bottom: 10px;
+}
+
+.posts-list .post-item h3 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.posts-list .post-item h3 a:hover {
+    text-decoration: underline;
+}
+
+.post-meta {
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.post-meta span {
+    margin-right: 15px;
+}
+
+.category-link {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+}
+
+.category-link:hover {
+    text-decoration: underline;
+}
+
+.tag {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.post-excerpt {
+    margin-top: 10px;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
 /* 媒體查詢以調整字型大小 */
 @media (max-width: 600px) {
     body {
         font-size: 14px;
         /* 螢幕寬度小於600px時的字體大小 */
+    }
+    
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .main-nav li {
+        margin: 5px 0;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .main-nav a {
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
     }
 }
 
@@ -18,12 +131,34 @@ body {
         font-size: 14px;
         /* 螢幕寬度小於等於768px時的字體大小 */
     }
+    
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .main-nav li {
+        margin: 3px 0;
+        width: 90%;
+        max-width: 250px;
+    }
+    
+    .main-nav a {
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
 }
 
 @media (max-width: 900px) {
     body {
         font-size: 16px;
         /* 螢幕寬度小於900px時的字體大小 */
+    }
+    
+    .main-nav a {
+        padding: 8px 12px;
+        font-size: 0.9em;
     }
 }
 

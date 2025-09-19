@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'zh-TW' }}">
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/styles.css' | relative_url }}">
+  <title>{{ page.title | default: site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a id="a-title" href="{{ '/' | relative_url }}">
+        <h1>{{ site.title | default: site.github.repository_name }}</h1>
+      </a>
+      <h2>{{ site.description | default: site.github.project_tagline }}</h2>
+      
+      <!-- Navigation Menu -->
+      <nav class="main-nav">
+        <ul>
+          <li><a href="{{ '/' | relative_url }}" {% if page.url == "/" %}class="current"{% endif %}>首頁</a></li>
+          <li><a href="{{ '/about' | relative_url }}" {% if page.url == "/about.html" or page.url == "/about/" %}class="current"{% endif %}>關於我</a></li>
+          <li><a href="{{ '/posts' | relative_url }}" {% if page.url == "/posts.html" or page.url == "/posts/" %}class="current"{% endif %}>文章</a></li>
+          <li><a href="{{ '/categories' | relative_url }}" {% if page.url == "/categories.html" or page.url == "/categories/" %}class="current"{% endif %}>分類</a></li>
+          <li><a href="{{ '/projects' | relative_url }}" {% if page.url == "/projects.html" or page.url == "/projects/" %}class="current"{% endif %}>作品集</a></li>
+          <li><a href="{{ '/ebooks' | relative_url }}" {% if page.url == "/ebooks.html" or page.url == "/ebooks/" %}class="current"{% endif %}>電子書</a></li>
+          <li><a href="{{ '/contact' | relative_url }}" {% if page.url == "/contact.html" or page.url == "/contact/" %}class="current"{% endif %}>聯絡我</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <section id="main_content">
+      {{ content }}
+    </section>
+  </div>
+</body>
+</html>
