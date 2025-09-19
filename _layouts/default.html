@@ -21,13 +21,13 @@
       <!-- Navigation Menu -->
       <nav class="main-nav">
         <ul>
-          <li><a href="{{ '/' | relative_url }}" {% if page.url == "/" %}class="current"{% endif %}>首頁</a></li>
-          <li><a href="{{ '/about' | relative_url }}" {% if page.url == "/about.html" or page.url == "/about/" %}class="current"{% endif %}>關於我</a></li>
-          <li><a href="{{ '/posts' | relative_url }}" {% if page.url == "/posts.html" or page.url == "/posts/" %}class="current"{% endif %}>文章</a></li>
-          <li><a href="{{ '/categories' | relative_url }}" {% if page.url == "/categories.html" or page.url == "/categories/" %}class="current"{% endif %}>分類</a></li>
-          <li><a href="{{ '/projects' | relative_url }}" {% if page.url == "/projects.html" or page.url == "/projects/" %}class="current"{% endif %}>作品集</a></li>
-          <li><a href="{{ '/ebooks' | relative_url }}" {% if page.url == "/ebooks.html" or page.url == "/ebooks/" %}class="current"{% endif %}>電子書</a></li>
-          <li><a href="{{ '/contact' | relative_url }}" {% if page.url == "/contact.html" or page.url == "/contact/" %}class="current"{% endif %}>聯絡我</a></li>
+          <li><a href="{{ '/' | relative_url }}" {% if page.url == "/" or page.url == "/index.html" %}class="current"{% endif %}>首頁</a></li>
+          <li><a href="{{ '/about' | relative_url }}" {% if page.url contains "/about" %}class="current"{% endif %}>關於我</a></li>
+          <li><a href="{{ '/posts' | relative_url }}" {% if page.url contains "/posts" %}class="current"{% endif %}>文章</a></li>
+          <li><a href="{{ '/categories' | relative_url }}" {% if page.url contains "/categories" or page.url contains "/category/" %}class="current"{% endif %}>分類</a></li>
+          <li><a href="{{ '/projects' | relative_url }}" {% if page.url contains "/projects" %}class="current"{% endif %}>作品集</a></li>
+          <li><a href="{{ '/ebooks' | relative_url }}" {% if page.url contains "/ebooks" %}class="current"{% endif %}>電子書</a></li>
+          <li><a href="{{ '/contact' | relative_url }}" {% if page.url contains "/contact" %}class="current"{% endif %}>聯絡我</a></li>
         </ul>
       </nav>
     </div>
