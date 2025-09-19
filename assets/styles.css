@@ -5,6 +5,18 @@ body {
     /* 設定背景顏色 */
 }
 
+/* 主要容器樣式 - 確保所有頁面文字都有適當的左右邊距 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+#main_content {
+    padding: 20px 0;
+    line-height: 1.6;
+}
+
 /* Navigation Menu Styles */
 .main-nav {
     margin: 20px 0;
@@ -101,11 +113,21 @@ body {
     line-height: 1.5;
 }
 
-/* 媒體查詢以調整字型大小 */
+/* 媒體查詢以調整字型大小和邊距 */
+/* 極小螢幕 (手機) */
 @media (max-width: 600px) {
     body {
         font-size: 14px;
         /* 螢幕寬度小於600px時的字體大小 */
+    }
+    
+    .container {
+        padding: 0 15px;
+        /* 手機上使用較小的邊距 */
+    }
+    
+    #main_content {
+        padding: 15px 0;
     }
     
     .main-nav ul {
@@ -126,10 +148,20 @@ body {
     }
 }
 
+/* 小螢幕 (平板直式) */
 @media (max-width: 768px) {
     body {
         font-size: 14px;
         /* 螢幕寬度小於等於768px時的字體大小 */
+    }
+    
+    .container {
+        padding: 0 18px;
+        /* 平板上使用中等邊距 */
+    }
+    
+    #main_content {
+        padding: 18px 0;
     }
     
     .main-nav ul {
@@ -150,10 +182,16 @@ body {
     }
 }
 
+/* 中型螢幕 (平板橫式) */
 @media (max-width: 900px) {
     body {
         font-size: 16px;
         /* 螢幕寬度小於900px時的字體大小 */
+    }
+    
+    .container {
+        padding: 0 25px;
+        /* 中型螢幕使用標準邊距 */
     }
     
     .main-nav a {
@@ -162,24 +200,42 @@ body {
     }
 }
 
+/* 中大型螢幕 */
 @media (max-width: 992px) {
     body {
         font-size: 16px;
         /* 螢幕寬度小於等於992px時的字體大小 */
     }
+    
+    .container {
+        padding: 0 30px;
+        /* 較大螢幕使用更大的邊距 */
+    }
 }
 
 
+/* 大型螢幕 */
 @media (max-width: 1200px) {
     body {
         font-size: 18px;
         /* 螢幕寬度小於等於1200px時的字體大小 */
     }
+    
+    .container {
+        padding: 0 40px;
+        /* 大螢幕使用更舒適的邊距 */
+    }
 }
 
+/* 超大螢幕 */
 @media (min-width: 1201px) {
     body {
         font-size: 20px;
         /* 螢幕寬度大於1200px時的字體大小 */
+    }
+    
+    .container {
+        padding: 0 50px;
+        /* 超大螢幕使用最大邊距以確保最佳閱讀體驗 */
     }
 }
