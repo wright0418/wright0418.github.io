@@ -2,14 +2,57 @@
 layout: default
 ---
 
-<link rel="stylesheet" href="{{ '/assets/styles.css' | relative_url }}">
+<div class="hero-section" style="margin-bottom: 30px;">
+  <h1>📂 {{ page.category }}</h1>
+  <p style="font-size: 1.05em; margin-bottom: 0;">{{ page.category }} 分類下的所有文章</p>
+</div>
 
-<h1>分類：{{ page.category }}</h1>
-<ul>
+<div class="posts-list">
 {% assign posts_with_category = site.posts | where_exp: "post", "post.categories contains page.category" %}
-{% for post in posts_with_category %}
-  <li><span>{{ post.date | date: "%Y-%m-%d" }}</span> — <a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
-{% endfor %}
-</ul>
+{% if posts_with_category.size > 0 %}
+  {% for post in posts_with_category %}
+  <article class="post-item">
+    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+    <div class="post-meta">
+      <div class="post-date">{{ post.date | date: "%Y年%m月%d日" }}</div>
+      {% if post.tags.size > 0 %}
+      <div class="post-tags">
+        {% for tag in post.tags limit:5 %}
+          <span class="tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% if post.excerpt %}
+    <div class="post-excerpt">
+      {{ post.excerpt | strip_html | truncate: 150 }}
+    </div>
+    {% endif %}
+  </article>
+  {% endfor %}
+{% else %}
+  <p style="text-align: center; padding: 40px 0; opacity: 0.7;">此分類下暫無文章</p>
+{% endif %}
+</div>
 
-<p><a href="{{ '/categories' | relative_url }}">← 返回所有分類</a></p>
+<div style="margin-top: 40px; text-align: center;">
+  <p><a href="{{ '/categories' | relative_url }}" style="font-weight: 600;">← 返回所有分類</a> | <a href="{{ '/' | relative_url }}" style="font-weight: 600;">返回首頁</a></p>
+</div>
+
+<!-- Back to Top Button -->
+<div class="back-to-top" id="backToTop" title="回到頂部"></div>
+
+<script>
+window.addEventListener('scroll', function() {
+  var backToTop = document.getElementById('backToTop');
+  if (window.pageYOffset > 300) {
+    backToTop.classList.add('visible');
+  } else {
+    backToTop.classList.remove('visible');
+  }
+});
+
+document.getElementById('backToTop').addEventListener('click', function() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
