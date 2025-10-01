@@ -9,11 +9,21 @@ body {
     color: #e0e0e0;
 }
 
-/* 主要容器樣式 */
+/* 主要容器樣式 - 增強置中效果 */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1400px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 確保 header 內的容器也置中 */
+header .container {
+    max-width: 1400px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 #main_content {
@@ -342,7 +352,9 @@ a:hover {
     }
     
     .container {
-        max-width: 1400px;
+        max-width: 1600px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
         padding: 0 60px;
     }
     
@@ -358,6 +370,9 @@ a:hover {
     }
     
     .container {
+        max-width: 1400px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
         padding: 0 40px;
     }
 }
@@ -369,6 +384,9 @@ a:hover {
     }
     
     .container {
+        max-width: 1200px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
         padding: 0 30px;
     }
     
