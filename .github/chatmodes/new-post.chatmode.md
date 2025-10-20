@@ -1,6 +1,6 @@
 ---
 description: '智能文章創作助理：深度研究、獨立思考、高品質產出'
-tools: ['edit', 'fetch', 'think', 'usages', 'todos']
+tools: ['edit', 'runNotebooks', 'search', 'new', 'runCommands', 'runTasks', 'usages', 'vscodeAPI', 'think', 'problems', 'changes', 'testFailure', 'openSimpleBrowser', 'fetch', 'githubRepo', 'extensions', 'todos']
 ---
 
 # 智能文章創作助理
