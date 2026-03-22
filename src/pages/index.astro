@@ -1,0 +1,397 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+).slice(0, 5);
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+
+		<!-- Hero Section -->
+		<section class="hero">
+			<div class="hero-inner">
+				<div class="hero-badge">嵌入式系統 · IC 設計 · AI</div>
+				<h1 class="hero-title">
+					<span class="greeting">你好，我是</span>
+					<span class="name">Wright 吳奇峯</span>
+				</h1>
+				<p class="hero-desc">
+					專注於 MCU Firmware、IC 架構設計、Python / JavaScript 開發，<br class="desktop-only" />
+					對 AI 與嵌入式系統充滿熱情。這裡是我的技術筆記與學習歷程。
+				</p>
+				<div class="hero-actions">
+					<a href="/blog" class="btn btn-primary">📝 閱讀文章</a>
+					<a href="/projects" class="btn btn-secondary">🚀 瀏覽專案</a>
+				</div>
+				<!-- Floating tech tags -->
+				<div class="tech-cloud">
+					<span class="tech-tag">C/C++</span>
+					<span class="tech-tag violet">Python</span>
+					<span class="tech-tag">MCU</span>
+					<span class="tech-tag violet">AI</span>
+					<span class="tech-tag">JavaScript</span>
+					<span class="tech-tag violet">IC Design</span>
+					<span class="tech-tag">Embedded</span>
+				</div>
+			</div>
+			<!-- Grid decoration -->
+			<div class="hero-grid"></div>
+		</section>
+
+		<!-- Recent Posts -->
+		<section class="section">
+			<div class="section-inner">
+				<div class="section-header">
+					<h2>📝 最新文章</h2>
+					<a href="/blog" class="see-all">查看全部 →</a>
+				</div>
+				<div class="post-list">
+					{posts.map((post) => (
+						<a href={`/blog/${post.id}/`} class="post-card">
+							<div class="post-card-content">
+								<h3 class="post-title">{post.data.title}</h3>
+								<p class="post-desc">{post.data.description}</p>
+								<div class="post-meta">
+									<FormattedDate date={post.data.pubDate} />
+								</div>
+							</div>
+							<div class="post-arrow">→</div>
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<!-- Skills / Domains -->
+		<section class="section dark-section">
+			<div class="section-inner">
+				<h2 style="text-align: center; margin-bottom: 1.5em;">💡 技術領域</h2>
+				<div class="skill-grid">
+					<div class="skill-card">
+						<div class="skill-icon">🔌</div>
+						<h3>嵌入式系統</h3>
+						<p>MCU Firmware 開發、硬體驅動程式、RTOS 應用、通訊協定整合</p>
+					</div>
+					<div class="skill-card">
+						<div class="skill-icon">🧬</div>
+						<h3>IC 架構設計</h3>
+						<p>半導體 MCU IC 架構分析、系統單晶片 (SoC) 設計概念與驗證</p>
+					</div>
+					<div class="skill-card">
+						<div class="skill-icon">🤖</div>
+						<h3>AI / 機器學習</h3>
+						<p>類神經網路探索、AI 輔助開發工具、Prompt Engineering 實踐</p>
+					</div>
+					<div class="skill-card">
+						<div class="skill-icon">💻</div>
+						<h3>軟體開發</h3>
+						<p>Python 自動化腳本、JavaScript 前端開發、GitHub Copilot 協作</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<Footer />
+	</body>
+</html>
+
+<style>
+	/* ── Hero ── */
+	.hero {
+		position: relative;
+		overflow: hidden;
+		padding: 5em 1.5em 4em;
+		min-height: 70vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.hero-grid {
+		position: absolute;
+		inset: 0;
+		background-image:
+			linear-gradient(rgba(0, 212, 255, 0.04) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(0, 212, 255, 0.04) 1px, transparent 1px);
+		background-size: 60px 60px;
+		mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+		-webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+		pointer-events: none;
+	}
+	.hero-inner {
+		position: relative;
+		z-index: 1;
+		max-width: var(--content-width);
+		text-align: center;
+	}
+	.hero-badge {
+		display: inline-block;
+		padding: 0.35em 1.2em;
+		margin-bottom: 1.5em;
+		font-size: 0.82em;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		color: var(--accent);
+		background: var(--accent-glow);
+		border: 1px solid var(--border-accent);
+		border-radius: 9999px;
+		animation: fadeInUp 0.6s ease forwards;
+	}
+	.hero-title {
+		font-size: 3.2em;
+		font-weight: 800;
+		line-height: 1.2;
+		margin: 0 0 0.6em;
+		animation: fadeInUp 0.6s ease 0.1s backwards;
+	}
+	.greeting {
+		display: block;
+		font-size: 0.45em;
+		font-weight: 500;
+		color: var(--text-secondary);
+		letter-spacing: 0.03em;
+		margin-bottom: 0.3em;
+	}
+	.name {
+		background: linear-gradient(135deg, var(--accent), var(--accent2));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+	.hero-desc {
+		max-width: 600px;
+		margin: 0 auto 2em;
+		color: var(--text-secondary);
+		font-size: 1.05em;
+		line-height: 1.8;
+		animation: fadeInUp 0.6s ease 0.2s backwards;
+	}
+	.hero-actions {
+		display: flex;
+		justify-content: center;
+		gap: 1em;
+		margin-bottom: 3em;
+		animation: fadeInUp 0.6s ease 0.3s backwards;
+	}
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4em;
+		padding: 0.75em 1.8em;
+		font-size: 0.95em;
+		font-weight: 600;
+		border-radius: 12px;
+		text-decoration: none;
+		transition: all var(--transition-normal);
+	}
+	.btn-primary {
+		background: linear-gradient(135deg, var(--accent-dim), var(--accent));
+		color: var(--bg-primary);
+		box-shadow: 0 4px 16px rgba(0, 212, 255, 0.3);
+	}
+	.btn-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 24px rgba(0, 212, 255, 0.45);
+		color: var(--bg-primary);
+		text-decoration: none;
+	}
+	.btn-secondary {
+		background: var(--bg-card);
+		color: var(--text-primary);
+		border: 1px solid var(--border-color);
+	}
+	.btn-secondary:hover {
+		border-color: var(--border-accent);
+		background: var(--bg-card-hover);
+		transform: translateY(-2px);
+		text-decoration: none;
+	}
+	.tech-cloud {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.6em;
+		animation: fadeInUp 0.6s ease 0.4s backwards;
+	}
+	.tech-tag {
+		display: inline-block;
+		padding: 0.25em 0.85em;
+		font-size: 0.78em;
+		font-weight: 500;
+		border-radius: 8px;
+		color: var(--accent);
+		background: var(--accent-glow);
+		border: 1px solid rgba(0, 212, 255, 0.12);
+		transition: all var(--transition-fast);
+	}
+	.tech-tag.violet {
+		color: var(--accent2);
+		background: var(--accent2-glow);
+		border-color: rgba(167, 139, 250, 0.12);
+	}
+	.tech-tag:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 2px 8px rgba(0, 212, 255, 0.15);
+	}
+
+	/* ── Sections ── */
+	.section {
+		padding: 4em 1.5em;
+		position: relative;
+		z-index: 1;
+	}
+	.dark-section {
+		background: var(--bg-secondary);
+		border-top: 1px solid var(--border-color);
+		border-bottom: 1px solid var(--border-color);
+	}
+	.section-inner {
+		max-width: var(--page-width);
+		margin: 0 auto;
+	}
+	.section-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1.5em;
+	}
+	.section-header h2 {
+		margin: 0;
+		font-size: 1.5em;
+	}
+	.see-all {
+		color: var(--accent);
+		font-size: 0.9em;
+		font-weight: 500;
+	}
+
+	/* ── Post List ── */
+	.post-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75em;
+	}
+	.post-card {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1.25em 1.5em;
+		background: var(--bg-card);
+		border: 1px solid var(--border-color);
+		border-radius: 14px;
+		text-decoration: none;
+		transition: all var(--transition-normal);
+	}
+	.post-card:hover {
+		border-color: var(--border-accent);
+		background: var(--bg-card-hover);
+		box-shadow: var(--shadow-glow);
+		transform: translateX(4px);
+		text-decoration: none;
+	}
+	.post-card-content {
+		flex: 1;
+		min-width: 0;
+	}
+	.post-title {
+		margin: 0 0 0.3em;
+		font-size: 1.1em;
+		font-weight: 600;
+		color: var(--text-primary);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.post-desc {
+		margin: 0 0 0.4em;
+		color: var(--text-muted);
+		font-size: 0.85em;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.post-meta {
+		color: var(--text-muted);
+		font-size: 0.8em;
+	}
+	.post-arrow {
+		font-size: 1.2em;
+		color: var(--text-muted);
+		margin-left: 1em;
+		transition: all var(--transition-fast);
+		flex-shrink: 0;
+	}
+	.post-card:hover .post-arrow {
+		color: var(--accent);
+		transform: translateX(4px);
+	}
+	.post-card:hover .post-title {
+		color: var(--accent);
+	}
+
+	/* ── Skill Grid ── */
+	.skill-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 1.25em;
+	}
+	.skill-card {
+		background: var(--bg-card);
+		border: 1px solid var(--border-color);
+		border-radius: 16px;
+		padding: 1.5em;
+		transition: all var(--transition-normal);
+	}
+	.skill-card:hover {
+		border-color: var(--border-accent);
+		box-shadow: var(--shadow-glow);
+		transform: translateY(-3px);
+	}
+	.skill-icon {
+		font-size: 2em;
+		margin-bottom: 0.5em;
+	}
+	.skill-card h3 {
+		margin: 0 0 0.4em;
+		font-size: 1.1em;
+		color: var(--accent);
+	}
+	.skill-card p {
+		margin: 0;
+		color: var(--text-secondary);
+		font-size: 0.88em;
+		line-height: 1.6;
+	}
+
+	/* ── Animations ── */
+	@keyframes fadeInUp {
+		from { opacity: 0; transform: translateY(20px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+
+	.desktop-only {
+		display: inline;
+	}
+
+	@media (max-width: 768px) {
+		.hero { padding: 3em 1em; min-height: 60vh; }
+		.hero-title { font-size: 2.2em; }
+		.hero-desc { font-size: 0.95em; }
+		.hero-actions { flex-direction: column; align-items: center; }
+		.desktop-only { display: none; }
+		.post-title { white-space: normal; }
+		.post-desc { display: none; }
+		.skill-grid { grid-template-columns: 1fr; }
+	}
+</style>

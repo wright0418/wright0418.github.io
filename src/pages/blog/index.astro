@@ -1,0 +1,149 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+	<head>
+		<BaseHead title={`文章 | ${SITE_TITLE}`} description="Wright 的技術筆記與學習歷程" />
+	</head>
+	<body>
+		<Header />
+		<main class="blog-main">
+			<div class="blog-header">
+				<h1>📝 所有文章</h1>
+				<p class="blog-subtitle">技術筆記、開發心得、學習紀錄 — 共 {posts.length} 篇</p>
+			</div>
+
+			<div class="blog-list">
+				{posts.map((post) => (
+					<a href={`/blog/${post.id}/`} class="blog-item">
+						<div class="blog-item-date">
+							<FormattedDate date={post.data.pubDate} />
+						</div>
+						<div class="blog-item-content">
+							<h3 class="blog-item-title">{post.data.title}</h3>
+							<p class="blog-item-desc">{post.data.description}</p>
+						</div>
+						<div class="blog-item-arrow">→</div>
+					</a>
+				))}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.blog-main {
+		width: var(--page-width);
+		max-width: calc(100% - 2em);
+		margin: auto;
+		padding: 3em 1em;
+		position: relative;
+		z-index: 1;
+	}
+	.blog-header {
+		margin-bottom: 2em;
+		padding-bottom: 1.5em;
+		border-bottom: 1px solid var(--border-color);
+		position: relative;
+	}
+	.blog-header::after {
+		content: '';
+		position: absolute;
+		bottom: -1px;
+		left: 0;
+		width: 100px;
+		height: 2px;
+		background: linear-gradient(90deg, var(--accent), transparent);
+	}
+	.blog-header h1 {
+		margin: 0 0 0.3em;
+		font-size: 2em;
+	}
+	.blog-subtitle {
+		margin: 0;
+		color: var(--text-muted);
+		font-size: 0.95em;
+	}
+
+	.blog-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+	}
+	.blog-item {
+		display: flex;
+		align-items: center;
+		gap: 1.5em;
+		padding: 1.2em 1.5em;
+		background: var(--bg-card);
+		border: 1px solid var(--border-color);
+		border-radius: 14px;
+		text-decoration: none;
+		transition: all var(--transition-normal);
+	}
+	.blog-item:hover {
+		border-color: var(--border-accent);
+		background: var(--bg-card-hover);
+		box-shadow: var(--shadow-glow);
+		transform: translateX(4px);
+		text-decoration: none;
+	}
+	.blog-item-date {
+		flex-shrink: 0;
+		width: 100px;
+		color: var(--text-muted);
+		font-size: 0.82em;
+		font-family: 'JetBrains Mono', monospace;
+	}
+	.blog-item-content {
+		flex: 1;
+		min-width: 0;
+	}
+	.blog-item-title {
+		margin: 0 0 0.2em;
+		font-size: 1.05em;
+		font-weight: 600;
+		color: var(--text-primary);
+		transition: color var(--transition-fast);
+	}
+	.blog-item:hover .blog-item-title {
+		color: var(--accent);
+	}
+	.blog-item-desc {
+		margin: 0;
+		color: var(--text-muted);
+		font-size: 0.85em;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.blog-item-arrow {
+		flex-shrink: 0;
+		color: var(--text-muted);
+		font-size: 1.1em;
+		transition: all var(--transition-fast);
+	}
+	.blog-item:hover .blog-item-arrow {
+		color: var(--accent);
+		transform: translateX(4px);
+	}
+
+	@media (max-width: 768px) {
+		.blog-item { flex-direction: column; align-items: flex-start; gap: 0.3em; }
+		.blog-item-date { width: auto; }
+		.blog-item-arrow { display: none; }
+		.blog-item-desc { white-space: normal; }
+	}
+</style>
