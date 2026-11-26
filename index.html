@@ -1,2 +1,952 @@
-<H1> 你好 </H1>
-<H2> 這是我的網頁 </H2>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>零境 RidgeRealm / Wright — 個人主頁</title>
+  <meta name="description" content="零境 RidgeRealm / Wright 的個人說明頁面：專注於 IC 架構與硬體系統、工程教育與物聯網實驗、獨立軟體開發與古典哲學探索。">
+  
+  <style>
+    /* ==========================================================================
+       設計系統變數 (Design Tokens) - 溫潤極簡美學 (Warm, Grounded Aesthetics)
+       ========================================================================== */
+    :root {
+      /* 日間模式 (Warm Off-White & Muted Slate) */
+      --bg-primary: #F7F5F0;
+      --bg-surface: #EFECE6;
+      --bg-card: #FAF9F6;
+      --text-primary: #262A2E;
+      --text-secondary: #565D65;
+      --text-muted: #7C848D;
+      --accent-primary: #526B5C;      /* 沉穩苔蘚綠 (Muted Sage/Moss) */
+      --accent-secondary: #9A6B52;    /* 溫潤陶土棕 (Warm Terracotta/Clay) */
+      --border-subtle: rgba(38, 42, 46, 0.1);
+      --border-hover: rgba(82, 107, 92, 0.35);
+      --shadow-card: 0 4px 20px rgba(38, 42, 46, 0.04);
+      --shadow-card-hover: 0 10px 28px rgba(38, 42, 46, 0.08);
+      --tag-bg: rgba(82, 107, 92, 0.1);
+      --tag-text: #3E5346;
+      --toast-bg: #262A2E;
+      --toast-text: #F7F5F0;
+    }
+
+    /* 夜間模式 (Deep Warm Charcoal & Slate) */
+    [data-theme="dark"] {
+      --bg-primary: #181A1B;
+      --bg-surface: #202325;
+      --bg-card: #24272A;
+      --text-primary: #EAE6DF;
+      --text-secondary: #ABA69E;
+      --text-muted: #7D7A74;
+      --accent-primary: #8BA896;      /* 柔和月白綠 */
+      --accent-secondary: #C8967B;    /* 暖沙金棕 */
+      --border-subtle: rgba(234, 230, 223, 0.09);
+      --border-hover: rgba(139, 168, 150, 0.35);
+      --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.25);
+      --shadow-card-hover: 0 10px 30px rgba(0, 0, 0, 0.4);
+      --tag-bg: rgba(139, 168, 150, 0.14);
+      --tag-text: #A4C2AF;
+      --toast-bg: #EAE6DF;
+      --toast-text: #181A1B;
+    }
+
+    /* ==========================================================================
+       基礎重置與排版設定 (Reset & Typography)
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      /* 零外部依賴的高品質繁體中文與西文字體堆疊 */
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", 
+                   "Microsoft JhengHei", "Noto Sans TC", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.75;
+      letter-spacing: 0.015em;
+      transition: background-color 0.35s ease, color 0.35s ease;
+      overflow-x: hidden;
+    }
+
+    /* ==========================================================================
+       版面容器與通用元件 (Layout & Utilities)
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 4.5rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-header {
+      margin-bottom: 2.25rem;
+    }
+
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-secondary);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.02em;
+    }
+
+    /* ==========================================================================
+       頂部導覽列 (Header & Navigation)
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: color-mix(in srgb, var(--bg-primary) 86%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background-color 0.35s ease, border-color 0.35s ease;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4.25rem;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.03em;
+    }
+
+    .brand-logo span {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      padding: 0.35rem 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-primary);
+    }
+
+    /* 日夜主題切換按鈕 */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border-subtle);
+      background-color: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+
+    .theme-toggle svg {
+      width: 1.1rem;
+      height: 1.1rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ==========================================================================
+       主視覺區 (Hero Section)
+       ========================================================================== */
+    .hero {
+      padding: 6rem 0 5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.75rem;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--accent-primary);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 2.85rem);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title .sub-name {
+      display: block;
+      font-size: clamp(1.15rem, 2.8vw, 1.45rem);
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-top: 0.35rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-tagline {
+      max-width: 620px;
+      font-size: 1.08rem;
+      color: var(--text-secondary);
+      line-height: 1.85;
+      margin-bottom: 2.25rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.35rem;
+      border-radius: 0.65rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background-color: var(--accent-primary);
+      color: #FFFFFF;
+    }
+
+    [data-theme="dark"] .btn-primary {
+      color: #141715;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-card);
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--border-hover);
+      background-color: var(--bg-surface);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================================
+       關於與核心領域 (About & Focus Areas)
+       ========================================================================== */
+    .about-intro {
+      font-size: 1.02rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 720px;
+    }
+
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .focus-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 0.9rem;
+      padding: 1.65rem;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .focus-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .focus-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 0.6rem;
+      background-color: var(--tag-bg);
+      color: var(--accent-primary);
+      margin-bottom: 1rem;
+    }
+
+    .focus-icon svg {
+      width: 1.2rem;
+      height: 1.2rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .focus-title {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .focus-en {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+
+    .focus-desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ==========================================================================
+       精選專案與探索 (Featured Projects / Explorations)
+       ========================================================================== */
+    .project-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 0.9rem;
+      padding: 1.75rem;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .project-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .project-title {
+      font-size: 1.12rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      transition: color 0.2s ease;
+    }
+
+    .project-card:hover .project-title {
+      color: var(--accent-primary);
+    }
+
+    .project-arrow {
+      color: var(--text-muted);
+      transition: transform 0.2s ease, color 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .project-card:hover .project-arrow {
+      color: var(--accent-primary);
+      transform: translate(2px, -2px);
+    }
+
+    .project-desc {
+      font-size: 0.94rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      line-height: 1.72;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      padding: 0.22rem 0.65rem;
+      border-radius: 0.45rem;
+      background-color: var(--tag-bg);
+      color: var(--tag-text);
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       連結與聯絡方式 (Links & Contact)
+       ========================================================================== */
+    .contact-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 1rem;
+      padding: 2.25rem;
+    }
+
+    .contact-text {
+      font-size: 0.98rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.75rem;
+      max-width: 580px;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.2rem;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 0.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .link-item:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .link-left {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .link-left svg {
+      width: 1.1rem;
+      height: 1.1rem;
+      color: var(--accent-primary);
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .link-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       頁尾 (Footer) & 提示訊息 (Toast)
+       ========================================================================== */
+    .site-footer {
+      padding: 2.5rem 0 3.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 1.75rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(1rem);
+      background-color: var(--toast-bg);
+      color: var(--toast-text);
+      padding: 0.65rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 200;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ==========================================================================
+       響應式設計 (Responsive Breakpoints)
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 4.5rem 0 3.75rem;
+      }
+
+      section {
+        padding: 3.5rem 0;
+      }
+
+      .focus-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .links-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .nav-links a {
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 1.15rem;
+      }
+
+      .brand-logo span {
+        display: none;
+      }
+
+      .contact-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部導覽列 -->
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a href="#top" class="brand-logo">
+        零境 <span>RidgeRealm / Wright</span>
+      </a>
+      <div class="nav-controls">
+        <nav aria-label="主要導覽">
+          <ul class="nav-links">
+            <li><a href="#about">領域</a></li>
+            <li><a href="#projects">探索</a></li>
+            <li><a href="#contact">聯繫</a></li>
+          </ul>
+        </nav>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="切換深色或淺色主題" title="切換深色 / 淺色主題">
+          <!-- 太陽圖示 (深色模式時顯示) -->
+          <svg id="iconSun" style="display: none;" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+          <!-- 月亮圖示 (淺色模式時顯示) -->
+          <svg id="iconMoon" viewBox="0 0 24 24">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- 1) Hero / 主視覺介紹區 -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-badge">
+          <span class="status-dot"></span>
+          <span>在矽晶微架構與古典思辨之間尋找邊界</span>
+        </div>
+        <h1 class="hero-title">
+          零境 RidgeRealm
+          <span class="sub-name">Wright — 系統架構師、工程教育者與獨立造物者</span>
+        </h1>
+        <p class="hero-tagline">
+          遊走於底層硬體邏輯與抽象軟體系統之間。日常深耕積體電路微架構設計與大學物聯網實驗教學，閒暇則透過獨立開發量化工具、慢旅行與古典哲學閱讀，保持對複雜系統的清晰洞察。
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">瀏覽近期探索</a>
+          <a href="#contact" class="btn btn-secondary">與我聯繫</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2) About / Focus Areas 核心關注領域 -->
+    <section id="about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Focus &amp; Craft</span>
+          <h2 class="section-title">關於與關注領域</h2>
+        </div>
+        <p class="about-intro">
+          我相信好的系統無論是矽晶片上的邏輯閘、課堂上的實驗模組，還是生活裡的日常節奏，都應該具備簡潔的結構與誠實的邊界。以下是我長期投入的四個方向：
+        </p>
+
+        <div class="focus-grid">
+          <!-- 領域 1 -->
+          <article class="focus-card">
+            <div class="focus-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                <rect x="9" y="9" width="6" height="6"></rect>
+                <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"></path>
+              </svg>
+            </div>
+            <h3 class="focus-title">IC 架構與硬體系統</h3>
+            <span class="focus-en">IC Architecture &amp; Hardware Systems</span>
+            <p class="focus-desc">
+              專注於數位積體電路微架構設計、低功耗運算單元最佳化，以及軟硬體協同驗證。追求在時序、面積與能耗之間取得優雅的工程平衡。
+            </p>
+          </article>
+
+          <!-- 領域 2 -->
+          <article class="focus-card">
+            <div class="focus-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+              </svg>
+            </div>
+            <h3 class="focus-title">大學工程教育與物聯網實驗</h3>
+            <span class="focus-en">University Engineering Education &amp; IoT Labs</span>
+            <p class="focus-desc">
+              設計並帶領大學部嵌入式系統與物聯網實作課程，將抽象的數位邏輯轉化為可觸摸的感測網路與邊緣運算專題，培養動手除錯的工程直覺。
+            </p>
+          </article>
+
+          <!-- 領域 3 -->
+          <article class="focus-card">
+            <div class="focus-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+                <line x1="14" y1="4" x2="10" y2="20"></line>
+              </svg>
+            </div>
+            <h3 class="focus-title">獨立軟體與量化工具</h3>
+            <span class="focus-en">Solo Software &amp; Quantitative Tools</span>
+            <p class="focus-desc">
+              以個人開發者身份打造輕量級分析工具、自動化腳本與金融數據回測框架。偏好零冗餘依賴、可長期維護且能解決真實問題的實用軟體。
+            </p>
+          </article>
+
+          <!-- 領域 4 -->
+          <article class="focus-card">
+            <div class="focus-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+              </svg>
+            </div>
+            <h3 class="focus-title">慢旅行與古典哲學</h3>
+            <span class="focus-en">Slow Travel &amp; Classical Philosophy</span>
+            <p class="focus-desc">
+              離開螢幕後，透過徒步與深度慢旅行觀察風土脈絡；在東西方古典哲學文本中沉澱思緒，練習以從容且具秩序的視角面對不確定性。
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3) Featured Projects / Explorations 精選專案與探索 -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Selected Explorations</span>
+          <h2 class="section-title">專案與實驗筆記</h2>
+        </div>
+
+        <div class="project-list">
+          <!-- 專案 1 -->
+          <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="project-card">
+            <div>
+              <div class="project-top">
+                <h3 class="project-title">RISC-V 微架構實驗平台與時序視覺化工具</h3>
+                <span class="project-arrow" aria-hidden="true">↗</span>
+              </div>
+              <p class="project-desc">
+                一套專為教學與原型驗證設計的模組化管線核心（Pipeline Core）參考實作，附帶輕量級波形與指令執行週期分析器，協助學生直觀理解管線冒險與分支預測機制。
+              </p>
+            </div>
+            <div class="project-tags">
+              <span class="tag">SystemVerilog</span>
+              <span class="tag">RISC-V</span>
+              <span class="tag">IC Architecture</span>
+            </div>
+          </a>
+
+          <!-- 專案 2 -->
+          <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="project-card">
+            <div>
+              <div class="project-top">
+                <h3 class="project-title">EdgeSense — 校園微氣候與低功耗物聯網實驗套件</h3>
+                <span class="project-arrow" aria-hidden="true">↗</span>
+              </div>
+              <p class="project-desc">
+                整合無線感測節點、MQTT 邊緣閘道與時序資料庫的完整實驗室教材架構，讓修課團隊能從零建置具備斷線續傳與能耗監測能力的分散式感測網路。
+              </p>
+            </div>
+            <div class="project-tags">
+              <span class="tag">Embedded C</span>
+              <span class="tag">IoT Lab</span>
+              <span class="tag">Low-Power</span>
+            </div>
+          </a>
+
+          <!-- 專案 3 -->
+          <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="project-card">
+            <div>
+              <div class="project-top">
+                <h3 class="project-title">RidgeQuant — 極簡事件驅動量化回測與風險儀表板</h3>
+                <span class="project-arrow" aria-hidden="true">↗</span>
+              </div>
+              <p class="project-desc">
+                為個人研究打造的純淨數據分析管線，專注於多週期波動率觀察、部位風險控制與策略穩健性檢驗，避免過度擬合並保留完整的決策日誌。
+              </p>
+            </div>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Quantitative Analysis</span>
+              <span class="tag">Solo Tool</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4) Links & Contact 連結與聯絡方式 -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Connect</span>
+          <h2 class="section-title">連結與聯絡</h2>
+        </div>
+
+        <div class="contact-card">
+          <p class="contact-text">
+            無論是關於晶片架構設計、工程教學交流、獨立開發合作，或是單純分享一本好書與一段旅程，都歡迎透過以下管道與我聯繫。
+          </p>
+
+          <div class="links-grid">
+            <!-- GitHub 連結 -->
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="link-item">
+              <span class="link-left">
+                <svg viewBox="0 0 24 24">
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                  <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                </svg>
+                <span>GitHub</span>
+              </span>
+              <span class="link-meta">@yourusername</span>
+            </a>
+
+            <!-- Blog / Notes 連結 -->
+            <a href="https://yourusername.github.io/notes" target="_blank" rel="noopener noreferrer" class="link-item">
+              <span class="link-left">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                </svg>
+                <span>零境筆記 Notes</span>
+              </span>
+              <span class="link-meta">隨筆與技術誌</span>
+            </a>
+
+            <!-- Email 複製按鈕（避免跳出外部郵件客戶端失敗，點擊直接複製並提示） -->
+            <button type="button" id="copyEmailBtn" class="link-item" data-email="wright@ridgerealm.example.com">
+              <span class="link-left">
+                <svg viewBox="0 0 24 24">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <span>Email</span>
+              </span>
+              <span class="link-meta">點擊複製信箱</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="currentYear"></span> 零境 RidgeRealm / Wright. Built for GitHub Pages.</p>
+    </div>
+  </footer>
+
+  <!-- 輕量級訊息提示框 -->
+  <div id="toast" class="toast" role="status" aria-live="polite">已複製電子郵件地址</div>
+
+  <script>
+    (function () {
+      // 1. 自動更新頁尾年份
+      const yearEl = document.getElementById('currentYear');
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+
+      // 2. 深色 / 淺色模式切換與系統偏好偵測
+      const htmlEl = document.documentElement;
+      const themeToggleBtn = document.getElementById('themeToggle');
+      const iconSun = document.getElementById('iconSun');
+      const iconMoon = document.getElementById('iconMoon');
+
+      function applyTheme(theme) {
+        if (theme === 'dark') {
+          htmlEl.setAttribute('data-theme', 'dark');
+          iconSun.style.display = 'block';
+          iconMoon.style.display = 'none';
+        } else {
+          htmlEl.removeAttribute('data-theme');
+          iconSun.style.display = 'none';
+          iconMoon.style.display = 'block';
+        }
+      }
+
+      // 優先讀取 localStorage，其次跟隨作業系統深淺色設定
+      const savedTheme = localStorage.getItem('ridgerealm-theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initialTheme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
+      applyTheme(initialTheme);
+
+      themeToggleBtn.addEventListener('click', function () {
+        const isDark = htmlEl.getAttribute('data-theme') === 'dark';
+        const nextTheme = isDark ? 'light' : 'dark';
+        applyTheme(nextTheme);
+        try {
+          localStorage.setItem('ridgerealm-theme', nextTheme);
+        } catch (e) {
+          // 忽略隱私瀏覽模式下的儲存限制
+        }
+      });
+
+      // 3. 點擊複製 Email 功能與 Toast 提示
+      const copyEmailBtn = document.getElementById('copyEmailBtn');
+      const toastEl = document.getElementById('toast');
+      let toastTimer = null;
+
+      function showToast(message) {
+        toastEl.textContent = message;
+        toastEl.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toastEl.classList.remove('show');
+        }, 2600);
+      }
+
+      if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', function () {
+          const email = copyEmailBtn.getAttribute('data-email');
+          // 建立暫時輸入框以確保在各種瀏覽器與 iframe 環境下皆可可靠複製
+          const tempInput = document.createElement('input');
+          tempInput.value = email;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          try {
+            document.execCommand('copy');
+            showToast('已複製信箱：' + email);
+          } catch (err) {
+            showToast('信箱位址：' + email);
+          }
+          document.body.removeChild(tempInput);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
