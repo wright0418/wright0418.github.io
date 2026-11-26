@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>星際先鋒 STAR VANGUARD 3D</title>
+  <!-- 載入科幻與繁體中文字型 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
+  <!-- 載入 Three.js r128 (cdnjs) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <!-- 3D 渲染畫布容器 -->
+  <div id="game-container"></div>
+
+  <!-- 視覺特效與掃描線層 -->
+  <div class="scanlines"></div>
+  <div id="fx-overlay"></div>
+
+  <!-- 波次與道具中央提示 -->
+  <div id="banner-container">
+    <div id="wave-banner" class="wave-banner">
+      <h2 id="wave-banner-title" class="font-tech">WAVE 01</h2>
+      <p id="wave-banner-sub">深空警戒 // 敵方前鋒接近</p>
+    </div>
+    <div id="toast-msg"></div>
+  </div>
+
+  <!-- 遊戲進行中 HUD -->
+  <div id="hud">
+    <!-- 頂部資訊列 -->
+    <div class="hud-top">
+      <div class="hud-panel score-panel">
+        <div class="stat-block">
+          <span class="stat-label">分數 SCORE</span>
+          <span id="hud-score" class="stat-value font-tech">0</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-label">最高分 BEST</span>
+          <span id="hud-best" class="stat-value gold font-tech">0</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-label">波次 WAVE</span>
+          <span id="hud-wave" class="stat-value wave font-tech">01</span>
+        </div>
+      </div>
+
+      <div class="hud-controls">
+        <button id="btn-autofire" class="hud-btn on" title="切換自動射擊 (F)">⚡ 自動射擊</button>
+        <button id="btn-camera" class="hud-btn" title="切換視角 (C)">🎥 視角</button>
+        <button id="btn-mute" class="hud-btn" title="靜音切換 (M)">🔊 音效</button>
+        <button id="btn-pause" class="hud-btn" title="暫停 (P / Esc)">⏸</button>
+        <a href="../index.html" class="hud-btn" title="返回遊戲大廳">🏠 大廳</a>
+      </div>
+    </div>
+
+    <!-- 底部狀態列 -->
+    <div class="hud-bottom">
+      <div class="hud-panel status-bars">
+        <!-- 護盾血量 -->
+        <div class="bar-row">
+          <div class="bar-header">
+            <span class="shield-label">🛡 護盾完整度 SHIELD</span>
+            <span id="hud-hp-text" class="font-tech">100%</span>
+          </div>
+          <div class="bar-track">
+            <div id="bar-shield" class="bar-fill shield"></div>
+          </div>
+        </div>
+
+        <!-- 閃避加速冷卻 -->
+        <div class="bar-row">
+          <div class="bar-header">
+            <span class="boost-label">💨 閃避推進 BOOST (Shift)</span>
+            <span id="hud-dash-text" class="font-tech">READY</span>
+          </div>
+          <div class="bar-track">
+            <div id="bar-dash" class="bar-fill dash"></div>
+          </div>
+        </div>
+
+        <!-- 強化武器計時 (升級時顯示) -->
+        <div id="weapon-timer-row" class="bar-row">
+          <div class="bar-header">
+            <span class="overdrive-label">🔥 三向散射能源 OVERDRIVE</span>
+            <span id="hud-weapon-time" class="font-tech">14.0s</span>
+          </div>
+          <div class="bar-track">
+            <div id="bar-weapon" class="bar-fill weapon"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-right-actions">
+        <div class="hud-panel weapon-badge">
+          <span class="stat-label">武裝系統 WEAPON</span>
+          <span id="hud-weapon-name" class="weapon-name">雙聯脈衝雷射</span>
+          <span class="camera-hint">右鍵拖曳可微調視角</span>
+        </div>
+        <button id="btn-dash-mobile" class="dash-action-btn" title="閃避加速 (Shift)">
+          <span class="dash-icon">⚡</span>
+          <span>閃避</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 開始畫面 -->
+  <div id="screen-start" class="overlay-screen visible">
+    <div class="modal-card">
+      <div class="game-badge font-tech">3D DEEP SPACE COMBAT</div>
+      <h1 class="game-title">星際先鋒</h1>
+      <div class="game-subtitle font-tech">STAR VANGUARD 3D</div>
+
+      <p class="intro-copy">
+        駕駛先鋒級戰機穿越星際隕石帶，攔截敵方無人機與菁英巡洋艦，守衛深空航線！
+      </p>
+
+      <div class="controls-grid">
+        <div class="ctrl-item">
+          <strong>⌨️ 鍵盤操作</strong>
+          <span>WASD / 方向鍵移動<br />空白鍵射擊 · Shift 無敵閃避<br />P / Esc 暫停 · C 切換視角</span>
+        </div>
+        <div class="ctrl-item">
+          <strong>🖱️ 滑鼠 / 觸控</strong>
+          <span>移動滑鼠或觸控拖曳控制戰機<br />左鍵點擊射擊（支援自動射擊）<br />右鍵拖曳自由微調 3D 鏡頭</span>
+        </div>
+      </div>
+
+      <div class="legend-row">
+        <span class="legend-pill"><span class="dot green"></span>綠色晶體：修復護盾 +30%</span>
+        <span class="legend-pill"><span class="dot gold"></span>金色晶體：三向散射武器升級</span>
+      </div>
+
+      <div class="best-score">
+        歷史最高紀錄：<strong id="start-best-score" class="font-tech">0</strong>
+      </div>
+
+      <button id="btn-start" class="btn-primary">🚀 開始任務</button>
+      <a href="../index.html" class="btn-secondary back-hub-btn">🏠 返回遊戲大廳</a>
+    </div>
+  </div>
+
+  <!-- 暫停畫面 -->
+  <div id="screen-pause" class="overlay-screen">
+    <div class="modal-card pause-modal">
+      <div class="game-badge font-tech">SYSTEM PAUSED</div>
+      <h2 class="game-title pause-title">任務暫停</h2>
+      <p class="pause-description">
+        推進系統待命中，按 P / Esc 或點擊下方按鈕繼續作戰。
+      </p>
+      <button id="btn-resume" class="btn-primary">▶ 繼續任務</button>
+      <button id="btn-restart-pause" class="btn-secondary">↺ 重新開始</button>
+      <a href="../index.html" class="btn-secondary back-hub-btn">🏠 返回遊戲大廳</a>
+    </div>
+  </div>
+
+  <!-- 結束結算畫面 -->
+  <div id="screen-gameover" class="overlay-screen">
+    <div class="modal-card">
+      <div class="game-badge font-tech gameover-badge">HULL CRITICAL // MISSION FAILED</div>
+      <h2 class="game-title gameover-title">戰機損毀</h2>
+      <div id="gameover-new-record" class="new-record-tag">🏆 突破歷史最高紀錄！</div>
+
+      <div class="summary-grid">
+        <div class="summary-box">
+          <div class="label">本次分數 SCORE</div>
+          <div id="end-score" class="val font-tech">0</div>
+        </div>
+        <div class="summary-box">
+          <div class="label">最高紀錄 BEST</div>
+          <div id="end-best" class="val gold font-tech">0</div>
+        </div>
+        <div class="summary-box">
+          <div class="label">抵達波次 WAVE</div>
+          <div id="end-wave" class="val font-tech">01</div>
+        </div>
+        <div class="summary-box">
+          <div class="label">擊毀目標 KILLS</div>
+          <div id="end-kills" class="val font-tech">0</div>
+        </div>
+      </div>
+
+      <button id="btn-retry" class="btn-primary">🔥 再次出擊</button>
+      <a href="../index.html" class="btn-secondary back-hub-btn">🏠 返回遊戲大廳</a>
+    </div>
+  </div>
+
+  <!-- WebGL 錯誤備援顯示 -->
+  <div id="error-box">
+    <h3 class="error-title">無法啟動 3D 引擎</h3>
+    <p id="error-box-msg"></p>
+  </div>
+
+  <script src="../game.js"></script>
+</body>
+</html>

@@ -652,6 +652,16 @@ html, body {
   background: rgba(0, 243, 255, 0.14);
 }
 
+a.btn-secondary,
+a.hud-btn {
+  text-decoration: none;
+}
+
+.back-hub-btn {
+  display: inline-block;
+  margin-top: 10px;
+}
+
 /* 結算統計卡片 */
 .summary-grid {
   display: grid;
