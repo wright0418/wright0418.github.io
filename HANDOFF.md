@@ -8,12 +8,12 @@
 
 ## 1. 專案現況與架構
 
-本專案已從單一遊戲頁面改版為**多遊戲入口大廳（Arcade Nexus）**，目前共規劃 **6 個遊戲欄位**，每個遊戲皆由獨立的 HTML 檔案管理：
+本專案已從單一遊戲頁面改版為**多遊戲入口大廳（Arcade Nexus — 明亮炫麗互動版）**，目前共規劃 **6 個遊戲欄位**，每個遊戲皆由獨立的 HTML 檔案管理：
 
 ```text
 wright0418.github.io/
-├── index.html                 # 多遊戲入口大廳（6 宮格卡片）
-├── portal.css                 # 大廳與預備遊戲頁面專用樣式（Sci-Fi Neon 主題）
+├── index.html                 # 多遊戲入口大廳（中央焦點舞台 + 側邊滑出選單）
+├── portal.css                 # 大廳與預備遊戲頁面專用樣式（Bright Prism Arcade 明亮主題）
 ├── styles.css                 # 遊戲 01（星際先鋒）專用樣式
 ├── game.js                    # 遊戲 01（星際先鋒）邏輯（Three.js r128 + Web Audio API）
 ├── HANDOFF.md                 # 本交接文件
@@ -28,9 +28,9 @@ wright0418.github.io/
 
 ### 各檔案職責說明
 1. **`index.html` / `portal.css`**
-   - 顯示「星際遊戲大廳」標題與上線進度（目前為 `1 / 6` 款遊戲）。
-   - 透過 CSS Grid（`.games-grid`）呈現 6 張卡片：桌機 3 欄、平板（`<= 980px`）2 欄、手機（`<= 640px`）1 欄。
-   - 遊戲 01 使用 `.game-card.playable` 樣式與 `可遊玩 PLAYABLE` 標籤；遊戲 02～06 使用 `.game-card.upcoming` 虛線邊框與 `遊戲未定` 標籤。
+   - 採用明亮漸層（`#f4f8ff` → `#dff1ff` → `#ede9fe`）搭配動態光暈與互動粒子連線背景（`#fx-canvas`）。
+   - 不再水平攤開 6 張卡片，改為**中央單一焦點舞台（`#spotlight-card`）**搭配 3D 滑鼠傾斜反光特效與炫彩流光邊框。
+   - 透過右上角「拉出遊戲選單」、左側邊緣把手（`GAMES ☰`）或 `Tab` 鍵可滑出**側邊遊戲選單（`#game-drawer`）**切換 6 個遊戲，亦支援 `1`–`6`、方向鍵與 `Enter` 快捷操控。
 2. **`games/star-vanguard.html`**
    - 原先位於根目錄 `index.html` 的「星際先鋒 STAR VANGUARD 3D」已移至此處。
    - 樣式與腳本改為相對路徑引用 `../styles.css` 與 `../game.js`。

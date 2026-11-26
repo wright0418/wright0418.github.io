@@ -2,28 +2,677 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>預備遊戲 02 // COMING SOON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>俄羅斯方塊：創意變形 // MORPH TETRIS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../portal.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #f0f9ff;
+      --bg-2: #ede9fe;
+      --card: rgba(255, 255, 255, 0.88);
+      --text: #0f172a;
+      --sub: #475569;
+      --cyan: #0284c7;
+      --indigo: #6366f1;
+      --pink: #ec4899;
+      --emerald: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg-1), #e0f2fe 45%, var(--bg-2));
+      color: var(--text);
+      font-family: 'Noto Sans TC', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+    }
+    .font-tech { font-family: 'Orbitron', monospace; letter-spacing: 0.06em; }
+
+    .topbar {
+      width: 100%;
+      max-width: 860px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .title-group h1 { font-size: 1.35rem; font-weight: 900; }
+    .title-group span { font-size: 0.74rem; color: var(--indigo); font-weight: 700; }
+    .top-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      padding: 9px 15px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(99, 102, 241, 0.25);
+      background: var(--card);
+      color: var(--text);
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(99, 102, 241, 0.16); }
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      color: #fff;
+      border-color: transparent;
+    }
+    .btn-morph {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      color: #fff;
+      border-color: transparent;
+    }
+    .btn-morph:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .game-layout {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    .board-wrap {
+      position: relative;
+      padding: 10px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px solid #fff;
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 0.12);
+    }
+    canvas#board {
+      display: block;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 10px;
+      border-radius: 14px;
+      background: rgba(248, 250, 252, 0.88);
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      gap: 12px;
+      z-index: 5;
+    }
+    .overlay.hidden { display: none; }
+    .overlay h2 { font-size: 1.6rem; font-weight: 900; }
+    .overlay p { font-size: 0.88rem; color: var(--sub); line-height: 1.6; max-width: 260px; }
+
+    .side-panel {
+      width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .panel-card {
+      background: var(--card);
+      border: 1.5px solid #fff;
+      border-radius: 18px;
+      padding: 14px 16px;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.07);
+    }
+    .panel-label { font-size: 0.72rem; font-weight: 800; color: var(--sub); margin-bottom: 6px; }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-val { font-size: 1.35rem; font-weight: 900; color: var(--cyan); }
+    .stat-val.pink { color: var(--pink); }
+
+    .next-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    canvas#next-canvas {
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .morph-bar-track {
+      width: 100%;
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 8px 0 10px;
+    }
+    .morph-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ec4899, #8b5cf6);
+      transition: width 0.25s ease;
+    }
+
+    .hint-list { font-size: 0.8rem; color: var(--sub); line-height: 1.65; }
+    .hint-list strong { color: var(--text); }
+
+    .mobile-controls {
+      display: none;
+      width: 100%;
+      max-width: 340px;
+      margin-top: 12px;
+      gap: 8px;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .m-btn {
+      padding: 14px 8px;
+      border-radius: 14px;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      font-weight: 900;
+      font-size: 1rem;
+      color: var(--text);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+    }
+    .m-btn:active { transform: scale(0.95); background: #e0f2fe; }
+
+    @media (max-width: 680px) {
+      .side-panel { width: 100%; max-width: 340px; }
+      .mobile-controls { display: grid; }
+    }
+  </style>
 </head>
 <body>
-  <div class="bg-grid"></div>
-  <div class="scanlines"></div>
+  <header class="topbar">
+    <div class="title-group">
+      <h1>🧩 俄羅斯方塊：創意變形</h1>
+      <span class="font-tech">MORPH TETRIS // CREATIVE EDITION</span>
+    </div>
+    <div class="top-btns">
+      <button id="btn-pause" class="btn" type="button">⏸ 暫停</button>
+      <button id="btn-restart" class="btn" type="button">↺ 重來</button>
+      <a href="../index.html" class="btn">🏠 返回大廳</a>
+    </div>
+  </header>
 
-  <main class="placeholder-wrapper">
-    <section class="placeholder-card">
-      <div class="placeholder-icon">🕹️</div>
-      <div class="placeholder-badge font-tech">GAME 02 // COMING SOON</div>
-      <h1 class="placeholder-title">預備遊戲 02</h1>
-      <p class="placeholder-desc">
-        此遊戲目前尚未決定主題與內容。<br />
-        未來開發完成後，將直接於 <code>games/game-02.html</code> 獨立管理與上線！
-      </p>
-      <a href="../index.html" class="btn-back">← 返回遊戲大廳</a>
-    </section>
+  <main class="game-layout">
+    <div class="board-wrap">
+      <canvas id="board" width="300" height="600"></canvas>
+      <div id="overlay" class="overlay">
+        <h2 id="ov-title">創意變形方塊</h2>
+        <p id="ov-desc">
+          除了經典方塊，還會出現「十字型、U型、對角階梯、流沙方塊」！<br />
+          使用「✨ 創意變形 (M)」可將當前方塊變為「單格寶石」或「流沙坍塌塊」填補空洞！
+        </p>
+        <button id="btn-start" class="btn btn-primary" type="button">🚀 開始遊戲</button>
+      </div>
+    </div>
+
+    <aside class="side-panel">
+      <div class="panel-card">
+        <div class="stats-grid">
+          <div>
+            <div class="panel-label">分數 SCORE</div>
+            <div id="score" class="stat-val font-tech">0</div>
+          </div>
+          <div>
+            <div class="panel-label">消行 LINES</div>
+            <div id="lines" class="stat-val pink font-tech">0</div>
+          </div>
+          <div>
+            <div class="panel-label">等級 LEVEL</div>
+            <div id="level" class="stat-val font-tech">1</div>
+          </div>
+          <div>
+            <div class="panel-label">最高分 BEST</div>
+            <div id="best" class="stat-val font-tech">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <div class="panel-label">下一個方塊 NEXT</div>
+        <div class="next-row">
+          <canvas id="next-canvas" width="110" height="110"></canvas>
+          <div style="flex:1;">
+            <div id="next-name" style="font-weight:900; font-size:0.95rem; margin-bottom:4px;">經典長條</div>
+            <div id="next-trait" style="font-size:0.78rem; color:var(--sub);">標準型態</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <div class="panel-label">✨ 創意變形系統 MORPH (M / Shift)</div>
+        <div style="display:flex; justify-content:space-between; font-size:0.84rem; font-weight:800;">
+          <span>可用次數：<strong id="morph-charges" class="font-tech" style="color:var(--pink);">2</strong></span>
+          <span id="morph-mode-label" style="color:var(--indigo);">點擊輪替變形</span>
+        </div>
+        <div class="morph-bar-track"><div id="morph-bar" class="morph-bar-fill"></div></div>
+        <button id="btn-morph" class="btn btn-morph" style="width:100%; justify-content:center;" type="button">
+          ✨ 發動創意變形 (M)
+        </button>
+      </div>
+
+      <div class="panel-card hint-list">
+        <div class="panel-label">操作與創意規則</div>
+        <strong>← / →</strong> 移動 · <strong>↑</strong> 旋轉 · <strong>↓</strong> 加速<br />
+        <strong>Space</strong> 直接落下 · <strong>M / Shift</strong> 創意變形<br />
+        <strong>🏖 流沙塊</strong>：落地會崩解成沙粒自動填平底部空隙！<br />
+        <strong>💎 單格寶石</strong>：變形後可精準補洞！
+      </div>
+    </aside>
+
+    <div class="mobile-controls">
+      <button class="m-btn" data-act="left">◀</button>
+      <button class="m-btn" data-act="rotate">⟳ 轉</button>
+      <button class="m-btn" data-act="right">▶</button>
+      <button class="m-btn" data-act="drop">⬇ 落</button>
+    </div>
   </main>
+
+  <script>
+    (function () {
+      'use strict';
+      const COLS = 10;
+      const ROWS = 20;
+      const BLOCK = 30;
+      const BEST_KEY = 'morph_tetris_best_v1';
+
+      const canvas = document.getElementById('board');
+      const ctx = canvas.getContext('2d');
+      const nextCanvas = document.getElementById('next-canvas');
+      const nextCtx = nextCanvas.getContext('2d');
+
+      const scoreEl = document.getElementById('score');
+      const linesEl = document.getElementById('lines');
+      const levelEl = document.getElementById('level');
+      const bestEl = document.getElementById('best');
+      const nextNameEl = document.getElementById('next-name');
+      const nextTraitEl = document.getElementById('next-trait');
+      const morphChargesEl = document.getElementById('morph-charges');
+      const morphBarEl = document.getElementById('morph-bar');
+      const btnMorph = document.getElementById('btn-morph');
+      const overlay = document.getElementById('overlay');
+      const ovTitle = document.getElementById('ov-title');
+      const ovDesc = document.getElementById('ov-desc');
+      const btnStart = document.getElementById('btn-start');
+
+      // 創意方塊庫：包含經典 + 創意幾何 + 流沙特性
+      const PIECES = [
+        { name: '經典長條', trait: '標準型態', color: '#0ea5e9', sand: false, matrix: [[1,1,1,1]] },
+        { name: '雙色方塊', trait: '標準型態', color: '#f59e0b', sand: false, matrix: [[1,1],[1,1]] },
+        { name: 'T 型稜鏡', trait: '標準型態', color: '#8b5cf6', sand: false, matrix: [[0,1,0],[1,1,1]] },
+        { name: 'L 型折角', trait: '標準型態', color: '#10b981', sand: false, matrix: [[1,0],[1,0],[1,1]] },
+        { name: '閃電 Z 型', trait: '標準型態', color: '#ef4444', sand: false, matrix: [[1,1,0],[0,1,1]] },
+        { name: '創意 U 型槽', trait: '五格創意變體', color: '#ec4899', sand: false, matrix: [[1,0,1],[1,1,1]] },
+        { name: '星芒十字', trait: '五格創意變體', color: '#6366f1', sand: false, matrix: [[0,1,0],[1,1,1],[0,1,0]] },
+        { name: '對角階梯', trait: '創意斜角變體', color: '#14b8a6', sand: false, matrix: [[1,0,0],[0,1,0],[0,0,1]] },
+        { name: '流沙方塊', trait: '🏖 落地崩解填洞', color: '#f97316', sand: true, matrix: [[1,1,1],[0,1,0]] }
+      ];
+
+      let grid = [];
+      let current = null;
+      let nextPiece = null;
+      let score = 0;
+      let lines = 0;
+      let level = 1;
+      let best = Number(localStorage.getItem(BEST_KEY) || 0);
+      let morphCharges = 2;
+      let morphProgress = 0;
+      let running = false;
+      let paused = false;
+      let dropCounter = 0;
+      let lastTime = 0;
+      let animId = null;
+
+      bestEl.textContent = best;
+
+      function createGrid() {
+        return Array.from({ length: ROWS }, () => Array(COLS).fill(null));
+      }
+
+      function cloneMatrix(m) {
+        return m.map(r => r.slice());
+      }
+
+      function randomPiece() {
+        const p = PIECES[Math.floor(Math.random() * PIECES.length)];
+        return {
+          name: p.name,
+          trait: p.trait,
+          color: p.color,
+          sand: p.sand,
+          matrix: cloneMatrix(p.matrix),
+          x: Math.floor((COLS - p.matrix[0].length) / 2),
+          y: 0
+        };
+      }
+
+      function collide(mat, ox, oy) {
+        for (let r = 0; r < mat.length; r++) {
+          for (let c = 0; c < mat[r].length; c++) {
+            if (!mat[r][c]) continue;
+            const nx = ox + c;
+            const ny = oy + r;
+            if (nx < 0 || nx >= COLS || ny >= ROWS) return true;
+            if (ny >= 0 && grid[ny][nx]) return true;
+          }
+        }
+        return false;
+      }
+
+      function rotateMatrix(mat) {
+        const rows = mat.length;
+        const cols = mat[0].length;
+        const res = Array.from({ length: cols }, () => Array(rows).fill(0));
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            res[c][rows - 1 - r] = mat[r][c];
+          }
+        }
+        return res;
+      }
+
+      function rotateCurrent() {
+        if (!running || paused) return;
+        const rotated = rotateMatrix(current.matrix);
+        const kicks = [0, -1, 1, -2, 2];
+        for (const k of kicks) {
+          if (!collide(rotated, current.x + k, current.y)) {
+            current.matrix = rotated;
+            current.x += k;
+            return;
+          }
+        }
+      }
+
+      function triggerMorph() {
+        if (!running || paused || morphCharges <= 0) return;
+        morphCharges--;
+        // 輪替變形：若目前不是單格寶石，變成單格寶石；或是變成流沙長條
+        if (current.matrix.length === 1 && current.matrix[0].length === 1) {
+          current.matrix = [[1, 1, 1, 1]];
+          current.color = '#f97316';
+          current.sand = true;
+          current.name = '流沙長條';
+        } else {
+          current.matrix = [[1]];
+          current.color = '#ec4899';
+          current.sand = false;
+          current.name = '單格寶石';
+        }
+        if (collide(current.matrix, current.x, current.y)) {
+          current.x = Math.max(0, Math.min(COLS - current.matrix[0].length, current.x));
+        }
+        updateUI();
+      }
+
+      function settleSand() {
+        // 讓標記為 sand 的格子向下滑落填補空隙
+        let moved = true;
+        while (moved) {
+          moved = false;
+          for (let r = ROWS - 2; r >= 0; r--) {
+            for (let c = 0; c < COLS; c++) {
+              const cell = grid[r][c];
+              if (cell && cell.sand && !grid[r + 1][c]) {
+                grid[r + 1][c] = cell;
+                grid[r][c] = null;
+                moved = true;
+              }
+            }
+          }
+        }
+      }
+
+      function mergePiece() {
+        for (let r = 0; r < current.matrix.length; r++) {
+          for (let c = 0; c < current.matrix[r].length; c++) {
+            if (!current.matrix[r][c]) continue;
+            const gy = current.y + r;
+            const gx = current.x + c;
+            if (gy >= 0 && gy < ROWS && gx >= 0 && gx < COLS) {
+              grid[gy][gx] = { color: current.color, sand: current.sand };
+            }
+          }
+        }
+        if (current.sand) {
+          settleSand();
+        }
+        clearLines();
+        spawnNext();
+      }
+
+      function clearLines() {
+        let cleared = 0;
+        for (let r = ROWS - 1; r >= 0; r--) {
+          if (grid[r].every(cell => cell !== null)) {
+            grid.splice(r, 1);
+            grid.unshift(Array(COLS).fill(null));
+            cleared++;
+            r++;
+          }
+        }
+        if (cleared > 0) {
+          const pts = [0, 100, 300, 550, 900][Math.min(4, cleared)] * level;
+          score += pts;
+          lines += cleared;
+          level = Math.floor(lines / 8) + 1;
+          morphProgress += cleared * 35;
+          while (morphProgress >= 100) {
+            morphProgress -= 100;
+            morphCharges++;
+          }
+          if (score > best) {
+            best = score;
+            localStorage.setItem(BEST_KEY, String(best));
+          }
+          updateUI();
+        }
+      }
+
+      function spawnNext() {
+        current = nextPiece || randomPiece();
+        nextPiece = randomPiece();
+        drawNext();
+        if (collide(current.matrix, current.x, current.y)) {
+          running = false;
+          ovTitle.textContent = '遊戲結束';
+          ovDesc.textContent = `本次分數：${score} 分 · 共消除 ${lines} 行！`;
+          btnStart.textContent = '🔥 再玩一次';
+          overlay.classList.remove('hidden');
+        }
+      }
+
+      function drop() {
+        if (!running || paused) return;
+        if (!collide(current.matrix, current.x, current.y + 1)) {
+          current.y++;
+        } else {
+          mergePiece();
+        }
+        dropCounter = 0;
+      }
+
+      function hardDrop() {
+        if (!running || paused) return;
+        while (!collide(current.matrix, current.x, current.y + 1)) {
+          current.y++;
+          score += 2;
+        }
+        mergePiece();
+        updateUI();
+      }
+
+      function getGhostY() {
+        let gy = current.y;
+        while (!collide(current.matrix, current.x, gy + 1)) gy++;
+        return gy;
+      }
+
+      function drawBlock(context, x, y, size, color, alpha = 1, isSand = false) {
+        context.save();
+        context.globalAlpha = alpha;
+        context.fillStyle = color;
+        context.beginPath();
+        context.roundRect(x * size + 1.5, y * size + 1.5, size - 3, size - 3, 6);
+        context.fill();
+        context.fillStyle = 'rgba(255,255,255,0.32)';
+        context.fillRect(x * size + 4, y * size + 4, size - 8, 5);
+        if (isSand) {
+          context.fillStyle = '#fff';
+          context.fillRect(x * size + size / 2 - 2, y * size + size / 2 - 2, 4, 4);
+        }
+        context.restore();
+      }
+
+      function drawBoard() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // 格線
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.lineWidth = 1;
+        for (let c = 1; c < COLS; c++) {
+          ctx.beginPath(); ctx.moveTo(c * BLOCK, 0); ctx.lineTo(c * BLOCK, canvas.height); ctx.stroke();
+        }
+        for (let r = 1; r < ROWS; r++) {
+          ctx.beginPath(); ctx.moveTo(0, r * BLOCK); ctx.lineTo(canvas.width, r * BLOCK); ctx.stroke();
+        }
+
+        // 已固定方塊
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c < COLS; c++) {
+            const cell = grid[r][c];
+            if (cell) drawBlock(ctx, c, r, BLOCK, cell.color, 1, cell.sand);
+          }
+        }
+
+        if (current && running) {
+          // 落點預覽幽靈
+          const gy = getGhostY();
+          for (let r = 0; r < current.matrix.length; r++) {
+            for (let c = 0; c < current.matrix[r].length; c++) {
+              if (current.matrix[r][c]) {
+                drawBlock(ctx, current.x + c, gy + r, BLOCK, current.color, 0.22, false);
+                drawBlock(ctx, current.x + c, current.y + r, BLOCK, current.color, 1, current.sand);
+              }
+            }
+          }
+        }
+      }
+
+      function drawNext() {
+        nextCtx.clearRect(0, 0, nextCanvas.width, nextCanvas.height);
+        if (!nextPiece) return;
+        const m = nextPiece.matrix;
+        const s = 22;
+        const ox = (nextCanvas.width - m[0].length * s) / 2 / s;
+        const oy = (nextCanvas.height - m.length * s) / 2 / s;
+        for (let r = 0; r < m.length; r++) {
+          for (let c = 0; c < m[r].length; c++) {
+            if (m[r][c]) drawBlock(nextCtx, ox + c, oy + r, s, nextPiece.color, 1, nextPiece.sand);
+          }
+        }
+        nextNameEl.textContent = nextPiece.name;
+        nextTraitEl.textContent = nextPiece.trait;
+      }
+
+      function updateUI() {
+        scoreEl.textContent = score;
+        linesEl.textContent = lines;
+        levelEl.textContent = level;
+        bestEl.textContent = best;
+        morphChargesEl.textContent = morphCharges;
+        morphBarEl.style.width = `${morphProgress}%`;
+        btnMorph.disabled = !running || paused || morphCharges <= 0;
+      }
+
+      function loop(time = 0) {
+        const dt = time - lastTime;
+        lastTime = time;
+        if (running && !paused) {
+          dropCounter += dt;
+          const interval = Math.max(110, 720 - (level - 1) * 65);
+          if (dropCounter > interval) drop();
+        }
+        drawBoard();
+        animId = requestAnimationFrame(loop);
+      }
+
+      function startGame() {
+        grid = createGrid();
+        score = 0;
+        lines = 0;
+        level = 1;
+        morphCharges = 2;
+        morphProgress = 0;
+        paused = false;
+        running = true;
+        nextPiece = randomPiece();
+        spawnNext();
+        updateUI();
+        overlay.classList.add('hidden');
+        if (animId) cancelAnimationFrame(animId);
+        lastTime = performance.now();
+        animId = requestAnimationFrame(loop);
+      }
+
+      btnStart.addEventListener('click', startGame);
+      document.getElementById('btn-restart').addEventListener('click', startGame);
+      document.getElementById('btn-pause').addEventListener('click', () => {
+        if (!running) return;
+        paused = !paused;
+        if (paused) {
+          ovTitle.textContent = '遊戲暫停';
+          ovDesc.textContent = '點擊下方按鈕或再按一次暫停鍵繼續遊玩。';
+          btnStart.textContent = '▶ 繼續遊戲';
+          btnStart.onclick = () => { paused = false; overlay.classList.add('hidden'); btnStart.onclick = startGame; updateUI(); };
+          overlay.classList.remove('hidden');
+        } else {
+          overlay.classList.add('hidden');
+        }
+        updateUI();
+      });
+      btnMorph.addEventListener('click', triggerMorph);
+
+      window.addEventListener('keydown', (e) => {
+        if (!running || paused) return;
+        if (e.key === 'ArrowLeft') {
+          if (!collide(current.matrix, current.x - 1, current.y)) current.x--;
+        } else if (e.key === 'ArrowRight') {
+          if (!collide(current.matrix, current.x + 1, current.y)) current.x++;
+        } else if (e.key === 'ArrowDown') {
+          drop();
+        } else if (e.key === 'ArrowUp') {
+          rotateCurrent();
+        } else if (e.key === ' ') {
+          e.preventDefault();
+          hardDrop();
+        } else if (e.key === 'm' || e.key === 'M' || e.key === 'Shift') {
+          triggerMorph();
+        }
+      });
+
+      document.querySelectorAll('.m-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (!running || paused) return;
+          const act = btn.dataset.act;
+          if (act === 'left' && !collide(current.matrix, current.x - 1, current.y)) current.x--;
+          if (act === 'right' && !collide(current.matrix, current.x + 1, current.y)) current.x++;
+          if (act === 'rotate') rotateCurrent();
+          if (act === 'drop') hardDrop();
+        });
+      });
+
+      drawBoard();
+    })();
+  </script>
 </body>
 </html>

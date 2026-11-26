@@ -3,155 +3,384 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ARCADE NEXUS // 多元遊戲入口</title>
+  <title>ARCADE NEXUS // 明亮星際遊戲大廳</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="portal.css" />
 </head>
 <body>
-  <div class="bg-grid"></div>
-  <div class="scanlines"></div>
-
-  <div class="portal-wrapper">
-    <header class="portal-header">
-      <div class="portal-badge font-tech">ARCADE NEXUS // GAME PORTAL</div>
-      <h1 class="portal-title">星際遊戲大廳</h1>
-      <p class="portal-subtitle">
-        精選網頁小遊戲集合入口，每個遊戲皆獨立分頁管理，點擊下方卡片即可進入遊玩或查看預備欄位。
-      </p>
-      <div class="portal-stats">
-        <span>目前上線：<span class="highlight font-tech">1 / 6</span> 款遊戲</span>
-        <span>·</span>
-        <span>純靜態網頁即開即玩</span>
-      </div>
-    </header>
-
-    <main class="games-grid">
-      <!-- 遊戲 01：星際先鋒 STAR VANGUARD 3D -->
-      <a href="games/star-vanguard.html" class="game-card playable">
-        <div>
-          <div class="card-top">
-            <span class="slot-tag font-tech">GAME 01</span>
-            <span class="status-pill live">可遊玩 PLAYABLE</span>
-          </div>
-          <div class="card-icon">🚀</div>
-          <h2 class="card-title">星際先鋒</h2>
-          <div class="card-subtitle font-tech">STAR VANGUARD 3D</div>
-          <p class="card-desc">
-            駕駛先鋒級戰機穿越星際隕石帶，攔截敵方無人機與菁英巡洋艦的 3D 太空射擊遊戲。
-          </p>
-        </div>
-        <div class="card-footer">
-          <span class="file-hint">games/star-vanguard.html</span>
-          <span class="play-cta">立即出擊 →</span>
-        </div>
-      </a>
-
-      <!-- 遊戲 02：預備欄位 -->
-      <a href="games/game-02.html" class="game-card upcoming">
-        <div>
-          <div class="card-top">
-            <span class="slot-tag font-tech">GAME 02</span>
-            <span class="status-pill soon">遊戲未定</span>
-          </div>
-          <div class="card-icon">🕹️</div>
-          <h2 class="card-title">預備遊戲 02</h2>
-          <div class="card-subtitle font-tech">COMING SOON // SLOT 02</div>
-          <p class="card-desc">
-            此欄位已預留獨立 HTML 頁面，遊戲主題尚未決定，敬請期待後續更新。
-          </p>
-        </div>
-        <div class="card-footer">
-          <span class="file-hint">games/game-02.html</span>
-          <span class="play-cta">查看欄位 →</span>
-        </div>
-      </a>
-
-      <!-- 遊戲 03：預備欄位 -->
-      <a href="games/game-03.html" class="game-card upcoming">
-        <div>
-          <div class="card-top">
-            <span class="slot-tag font-tech">GAME 03</span>
-            <span class="status-pill soon">遊戲未定</span>
-          </div>
-          <div class="card-icon">🧩</div>
-          <h2 class="card-title">預備遊戲 03</h2>
-          <div class="card-subtitle font-tech">COMING SOON // SLOT 03</div>
-          <p class="card-desc">
-            此欄位已預留獨立 HTML 頁面，遊戲主題尚未決定，敬請期待後續更新。
-          </p>
-        </div>
-        <div class="card-footer">
-          <span class="file-hint">games/game-03.html</span>
-          <span class="play-cta">查看欄位 →</span>
-        </div>
-      </a>
-
-      <!-- 遊戲 04：預備欄位 -->
-      <a href="games/game-04.html" class="game-card upcoming">
-        <div>
-          <div class="card-top">
-            <span class="slot-tag font-tech">GAME 04</span>
-            <span class="status-pill soon">遊戲未定</span>
-          </div>
-          <div class="card-icon">👾</div>
-          <h2 class="card-title">預備遊戲 04</h2>
-          <div class="card-subtitle font-tech">COMING SOON // SLOT 04</div>
-          <p class="card-desc">
-            此欄位已預留獨立 HTML 頁面，遊戲主題尚未決定，敬請期待後續更新。
-          </p>
-        </div>
-        <div class="card-footer">
-          <span class="file-hint">games/game-04.html</span>
-          <span class="play-cta">查看欄位 →</span>
-        </div>
-      </a>
-
-      <!-- 遊戲 05：預備欄位 -->
-      <a href="games/game-05.html" class="game-card upcoming">
-        <div>
-          <div class="card-top">
-            <span class="slot-tag font-tech">GAME 05</span>
-            <span class="status-pill soon">遊戲未定</span>
-          </div>
-          <div class="card-icon">🎯</div>
-          <h2 class="card-title">預備遊戲 05</h2>
-          <div class="card-subtitle font-tech">COMING SOON // SLOT 05</div>
-          <p class="card-desc">
-            此欄位已預留獨立 HTML 頁面，遊戲主題尚未決定，敬請期待後續更新。
-          </p>
-        </div>
-        <div class="card-footer">
-          <span class="file-hint">games/game-05.html</span>
-          <span class="play-cta">查看欄位 →</span>
-        </div>
-      </a>
-
-      <!-- 遊戲 06：預備欄位 -->
-      <a href="games/game-06.html" class="game-card upcoming">
-        <div>
-          <div class="card-top">
-            <span class="slot-tag font-tech">GAME 06</span>
-            <span class="status-pill soon">遊戲未定</span>
-          </div>
-          <div class="card-icon">⚡</div>
-          <h2 class="card-title">預備遊戲 06</h2>
-          <div class="card-subtitle font-tech">COMING SOON // SLOT 06</div>
-          <p class="card-desc">
-            此欄位已預留獨立 HTML 頁面，遊戲主題尚未決定，敬請期待後續更新。
-          </p>
-        </div>
-        <div class="card-footer">
-          <span class="file-hint">games/game-06.html</span>
-          <span class="play-cta">查看欄位 →</span>
-        </div>
-      </a>
-    </main>
-
-    <footer class="portal-footer">
-      <p>ARCADE NEXUS MULTI-GAME HUB · 每個遊戲獨立 HTML 檔案管理</p>
-    </footer>
+  <!-- 明亮動態背景光暈與互動粒子畫布 -->
+  <div class="ambient-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
   </div>
+  <canvas id="fx-canvas"></canvas>
+
+  <!-- 頂部導覽列 -->
+  <header class="top-bar">
+    <div class="brand-group">
+      <div class="brand-logo">🎮</div>
+      <div class="brand-text">
+        <h1>星際遊戲大廳</h1>
+        <span class="font-tech">ARCADE NEXUS PORTAL</span>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <div class="status-chip">
+        上線進度：<strong class="font-tech">3 / 6</strong>
+      </div>
+      <button id="btn-open-drawer" class="drawer-trigger" type="button">
+        <span>☰</span>
+        <span>拉出遊戲選單</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 左側邊緣快速拉出把手 -->
+  <button id="edge-handle" class="edge-handle font-tech" type="button" title="拉出側邊遊戲選單">
+    GAMES ☰
+  </button>
+
+  <!-- 中央焦點展示舞台 -->
+  <main class="main-stage">
+    <section id="spotlight-card" class="spotlight-card">
+      <div class="spotlight-inner">
+        <div class="spotlight-sheen"></div>
+
+        <div class="spotlight-header">
+          <span id="hero-slot" class="slot-pill font-tech">GAME 01 // SELECTED</span>
+          <span id="hero-status" class="state-badge live">可遊玩 PLAYABLE</span>
+        </div>
+
+        <div class="spotlight-body">
+          <div id="hero-icon" class="hero-icon-box">🚀</div>
+          <div>
+            <h2 id="hero-title" class="hero-title">星際先鋒</h2>
+            <div id="hero-subtitle" class="hero-subtitle font-tech">STAR VANGUARD 3D</div>
+            <p id="hero-desc" class="hero-desc">
+              駕駛先鋒級戰機穿越星際隕石帶，攔截敵方無人機與菁英巡洋艦的 3D 太空射擊遊戲。
+            </p>
+          </div>
+        </div>
+
+        <div class="spotlight-footer">
+          <span id="hero-file" class="file-tag">games/star-vanguard.html</span>
+          <div class="action-group">
+            <button id="btn-stage-drawer" class="btn-outline" type="button">☰ 切換其他遊戲</button>
+            <a id="hero-launch" href="games/star-vanguard.html" class="btn-launch">
+              <span>立即出擊</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="quick-hints">
+      <span>快捷操控：</span>
+      <span><span class="kbd">Tab</span> 開關側邊欄</span>
+      <span><span class="kbd">1</span>–<span class="kbd">6</span> 快速切換</span>
+      <span><span class="kbd">Enter</span> 進入遊戲</span>
+    </div>
+  </main>
+
+  <!-- 側邊滑出選單遮罩 -->
+  <div id="drawer-backdrop" class="drawer-backdrop"></div>
+
+  <!-- 側邊滑出遊戲選單 -->
+  <aside id="game-drawer" class="game-drawer" aria-label="遊戲選擇側邊欄">
+    <div class="drawer-header">
+      <div>
+        <div class="drawer-title">選擇遊戲</div>
+        <div class="drawer-sub font-tech">6 INDEPENDENT HTML SLOTS</div>
+      </div>
+      <button id="btn-close-drawer" class="drawer-close" type="button" aria-label="關閉選單">✕</button>
+    </div>
+
+    <div id="drawer-list" class="drawer-list"></div>
+
+    <div class="drawer-footer">
+      每個遊戲皆獨立 HTML 檔案管理 · 點擊切換舞台，再按進入
+    </div>
+  </aside>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const GAMES = [
+        {
+          id: '01',
+          title: '星際先鋒',
+          subtitle: 'STAR VANGUARD 3D',
+          desc: '駕駛先鋒級戰機穿越星際隕石帶，攔截敵方無人機與菁英巡洋艦的 3D 太空射擊遊戲。',
+          icon: '🚀',
+          url: 'games/star-vanguard.html',
+          playable: true,
+          cta: '立即出擊'
+        },
+        {
+          id: '02',
+          title: '俄羅斯方塊：創意變形',
+          subtitle: 'MORPH TETRIS',
+          desc: '除了經典方塊，還會出現十字型、U型、流沙方塊，並可發動創意變形精準補洞！',
+          icon: '🧩',
+          url: 'games/game-02.html',
+          playable: true,
+          cta: '立即遊玩'
+        },
+        {
+          id: '03',
+          title: '幾何打磚塊',
+          subtitle: 'PRISM BREAKER',
+          desc: '六邊形、菱形、三角形與圓形磚塊組成，採用精確幾何法線反射與子步進物理！',
+          icon: '🔷',
+          url: 'games/game-03.html',
+          playable: true,
+          cta: '立即遊玩'
+        },
+        {
+          id: '04',
+          title: '預備遊戲 04',
+          subtitle: 'COMING SOON // SLOT 04',
+          desc: '此欄位已預留獨立 HTML 頁面，遊戲主題尚未決定，敬請期待後續更新。',
+          icon: '👾',
+          url: 'games/game-04.html',
+          playable: false,
+          cta: '查看預備頁'
+        },
+        {
+          id: '05',
+          title: '預備遊戲 05',
+          subtitle: 'COMING SOON // SLOT 05',
+          desc: '此欄位已預留獨立 HTML 頁面，遊戲主題尚未決定，敬請期待後續更新。',
+          icon: '🎯',
+          url: 'games/game-05.html',
+          playable: false,
+          cta: '查看預備頁'
+        },
+        {
+          id: '06',
+          title: '預備遊戲 06',
+          subtitle: 'COMING SOON // SLOT 06',
+          desc: '此欄位已預留獨立 HTML 頁面，遊戲主題尚未決定，敬請期待後續更新。',
+          icon: '⚡',
+          url: 'games/game-06.html',
+          playable: false,
+          cta: '查看預備頁'
+        }
+      ];
+
+      let currentIndex = 0;
+
+      const drawer = document.getElementById('game-drawer');
+      const backdrop = document.getElementById('drawer-backdrop');
+      const drawerList = document.getElementById('drawer-list');
+      const spotlightCard = document.getElementById('spotlight-card');
+
+      const heroSlot = document.getElementById('hero-slot');
+      const heroStatus = document.getElementById('hero-status');
+      const heroIcon = document.getElementById('hero-icon');
+      const heroTitle = document.getElementById('hero-title');
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      const heroDesc = document.getElementById('hero-desc');
+      const heroFile = document.getElementById('hero-file');
+      const heroLaunch = document.getElementById('hero-launch');
+
+      function openDrawer() {
+        drawer.classList.add('open');
+        backdrop.classList.add('open');
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        backdrop.classList.remove('open');
+      }
+
+      function toggleDrawer() {
+        if (drawer.classList.contains('open')) {
+          closeDrawer();
+        } else {
+          openDrawer();
+        }
+      }
+
+      function renderDrawerList() {
+        drawerList.innerHTML = '';
+        GAMES.forEach((game, idx) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'drawer-item' + (idx === currentIndex ? ' active' : '');
+          btn.style.setProperty('--idx', idx);
+          btn.innerHTML = `
+            <div class="item-icon">${game.icon}</div>
+            <div class="item-info">
+              <div class="item-top">
+                <span class="item-slot font-tech">GAME ${game.id}</span>
+                <span class="item-tag ${game.playable ? 'live' : 'soon'}">
+                  ${game.playable ? '可遊玩' : '遊戲未定'}
+                </span>
+              </div>
+              <div class="item-title">${game.title}</div>
+            </div>
+            <span class="item-arrow">→</span>
+          `;
+          btn.addEventListener('click', () => {
+            selectGame(idx);
+            if (window.innerWidth <= 720) {
+              closeDrawer();
+            }
+          });
+          drawerList.appendChild(btn);
+        });
+      }
+
+      function selectGame(idx) {
+        if (idx < 0 || idx >= GAMES.length) return;
+        currentIndex = idx;
+        const game = GAMES[idx];
+
+        spotlightCard.classList.add('switching');
+        setTimeout(() => {
+          heroSlot.textContent = `GAME ${game.id} // SELECTED`;
+          heroStatus.textContent = game.playable ? '可遊玩 PLAYABLE' : '遊戲未定 COMING SOON';
+          heroStatus.className = 'state-badge ' + (game.playable ? 'live' : 'soon');
+          heroIcon.textContent = game.icon;
+          heroTitle.textContent = game.title;
+          heroSubtitle.textContent = game.subtitle;
+          heroDesc.textContent = game.desc;
+          heroFile.textContent = game.url;
+          heroLaunch.href = game.url;
+          heroLaunch.className = 'btn-launch' + (game.playable ? '' : ' soon-mode');
+          heroLaunch.innerHTML = `<span>${game.cta}</span><span>→</span>`;
+
+          spotlightCard.classList.remove('switching');
+        }, 160);
+
+        renderDrawerList();
+      }
+
+      /* 3D 傾斜與動態反光互動 */
+      spotlightCard.addEventListener('mousemove', (e) => {
+        const rect = spotlightCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rx = ((y / rect.height) - 0.5) * -9;
+        const ry = ((x / rect.width) - 0.5) * 9;
+        spotlightCard.style.transform = `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+        spotlightCard.style.setProperty('--mx', `${((x / rect.width) * 100).toFixed(1)}%`);
+        spotlightCard.style.setProperty('--my', `${((y / rect.height) * 100).toFixed(1)}%`);
+      });
+
+      spotlightCard.addEventListener('mouseleave', () => {
+        spotlightCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      });
+
+      /* 綁定按鈕與快捷鍵 */
+      document.getElementById('btn-open-drawer').addEventListener('click', openDrawer);
+      document.getElementById('btn-stage-drawer').addEventListener('click', openDrawer);
+      document.getElementById('edge-handle').addEventListener('click', openDrawer);
+      document.getElementById('btn-close-drawer').addEventListener('click', closeDrawer);
+      backdrop.addEventListener('click', closeDrawer);
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          toggleDrawer();
+        } else if (e.key === 'Escape') {
+          closeDrawer();
+        } else if (e.key >= '1' && e.key <= '6') {
+          selectGame(Number(e.key) - 1);
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          selectGame((currentIndex + 1) % GAMES.length);
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          selectGame((currentIndex - 1 + GAMES.length) % GAMES.length);
+        } else if (e.key === 'Enter' && document.activeElement.tagName !== 'BUTTON' && document.activeElement.tagName !== 'A') {
+          window.location.href = GAMES[currentIndex].url;
+        }
+      });
+
+      /* 明亮互動光點背景畫布 */
+      const canvas = document.getElementById('fx-canvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      let pointer = { x: -999, y: -999 };
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function initParticles() {
+        const count = Math.min(48, Math.floor((window.innerWidth * window.innerHeight) / 26000));
+        const colors = ['#38bdf8', '#818cf8', '#f472b6', '#34d399'];
+        particles = Array.from({ length: count }, (_, i) => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.55,
+          vy: (Math.random() - 0.5) * 0.55,
+          r: 2 + Math.random() * 3.5,
+          color: colors[i % colors.length]
+        }));
+      }
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          const dx = pointer.x - p.x;
+          const dy = pointer.y - p.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 140 && dist > 1) {
+            p.x -= (dx / dist) * 0.9;
+            p.y -= (dy / dist) * 0.9;
+          }
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = 0.45;
+          ctx.fill();
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const q = particles[j];
+            const d = Math.hypot(p.x - q.x, p.y - q.y);
+            if (d < 120) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = p.color;
+              ctx.globalAlpha = (1 - d / 120) * 0.16;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(animateParticles);
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        pointer.x = e.clientX;
+        pointer.y = e.clientY;
+      });
+      window.addEventListener('resize', () => {
+        resizeCanvas();
+        initParticles();
+      });
+
+      resizeCanvas();
+      initParticles();
+      animateParticles();
+      renderDrawerList();
+    })();
+  </script>
 </body>
 </html>
